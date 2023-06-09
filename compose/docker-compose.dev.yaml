@@ -2,24 +2,23 @@ version: "3.8"
 
 services:
   db:
-    image: mysql:latest
+    image: postgres:latest
 
     # used to create the database credentials
     environment:
-      MYSQL_USER: ct3t-admin
-      MYSQL_PASSWORD: ct3t-pass
-      MYSQL_DATABASE: ct3t-db
-      MYSQL_ROOT_PASSWORD: root-password
-      MYSQL_PORT: 3306
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+      PGDATA: /data/postgres
+
+    # generate a connection query  from the environment variables
+    # postgres://postgres:postgres@db:5432/postgres
 
     ports:
-      - "3306:3306"
+      - "5432:5432"
 
     volumes:
-      - db_data:/var/lib/mysql
-      # uncomment the next line to seed the database with a startup SQL script
-      # also remove the persistent volume above to ensure successful seeding
-      #- ./db-seed.sql:/docker-entrypoint-initdb.d/init.sql
+      - db_data:/data/postgres
 
   redis:
     image: redis:latest
