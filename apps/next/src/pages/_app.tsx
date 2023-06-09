@@ -18,12 +18,14 @@ const MyApp: AppType = ({ Component, pageProps }) => (
     <ClerkProvider {...pageProps} appearance={{ baseTheme: dark }}>
       <MantineProvider
         withNormalizeCSS
-        withCSSVariables
+        withGlobalStyles
         theme={{ colorScheme: "dark" }}
       >
         <Notifications limit={5} />
 
-        <Component {...pageProps} />
+        <main>
+          <Component {...pageProps} />
+        </main>
       </MantineProvider>
     </ClerkProvider>
   </>
