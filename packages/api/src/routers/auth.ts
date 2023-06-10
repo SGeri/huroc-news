@@ -1,34 +1,12 @@
-import { TRPCError } from "@trpc/server";
-import { createRouter, publicProcedure } from "../trpc";
+import { userService } from "../services/user.service";
+import { adminProcedure, createRouter } from "../trpc";
 
 export const authRouter = createRouter({
-  getUser: publicProcedure.query(async ({ ctx }) => {
-    if (!ctx.auth.userId)
-      throw new TRPCError({
-        code: "UNAUTHORIZED",
-        message: "Not authenticated",
-      });
+  /*getName: adminProcedure.query(({ ctx }) => ({
+    name: `${ctx.user.personal.lastName} ${ctx.user.contact.email}`,
+  })),
 
-    const user = await ctx.prisma.user.findUnique({
-      where: {
-        clerk_id: ctx.auth.userId,
-      },
-    });
-
-    if (!user)
-      throw new TRPCError({
-        code: "NOT_FOUND",
-        message: "User not found",
-      });
-
-    return { user };
-  }),
-
-  getSession: publicProcedure.query(({ ctx }) => {
-    return ctx.auth.session;
-  }),
-
-  getSecretMessage: publicProcedure.query(() => {
-    return "you can see this secret message!";
-  }),
+  invalidateUser: adminProcedure.mutation(async ({ ctx }) => {
+    await userService.invalidateUserCache(ctx.auth.userId as string); // userId is always defined since this is a protected route
+  }),*/
 });

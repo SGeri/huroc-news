@@ -9,6 +9,14 @@ const config = {
   transpilePackages: ["@packages/api", "@packages/db"],
   eslint: { ignoreDuringBuilds: false },
   typescript: { ignoreBuildErrors: false },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "media-rockstargames-com.akamaized.net",
+      },
+    ],
+  },
 };
 
 export default config;

@@ -58,7 +58,7 @@ export const createRatelimitedProcedure = (
     const identifier = ctx.ip; // what to do if ip is null?
     const result = await ratelimit.limit(identifier as string);
 
-    if (!result.success)
+    if (identifier && !result.success)
       throw new TRPCError({
         code: "TOO_MANY_REQUESTS",
         message: "You are ratelimited, please slow down",

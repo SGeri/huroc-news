@@ -6,9 +6,7 @@ import { getAuth } from "@clerk/nextjs/server";
 import { type ClerkAPIError } from "@clerk/types";
 import {
   Button,
-  Checkbox,
   Container,
-  Group,
   Paper,
   PasswordInput,
   Text,
@@ -105,10 +103,6 @@ const SignInPage = () => {
             mt="md"
             {...form.getInputProps("password")}
           />
-
-          <Group position="apart" mt="lg">
-            <Checkbox label="Remember me" />
-          </Group>
 
           <Button
             fullWidth

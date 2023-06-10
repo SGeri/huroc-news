@@ -6,6 +6,10 @@ import { dark } from "@clerk/themes";
 import { MantineProvider } from "@mantine/core";
 import { Notifications } from "@mantine/notifications";
 import { api } from "~/utils/api";
+import "dayjs/locale/hu";
+import days from "dayjs";
+
+days.locale("hu");
 
 const MyApp: AppType = ({ Component, pageProps }) => (
   <>

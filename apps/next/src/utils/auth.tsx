@@ -4,9 +4,11 @@ import type {
   NextPage,
 } from "next";
 import { buildClerkProps, getAuth } from "@clerk/nextjs/server";
+import superjson from "superjson";
 import { userService } from "@packages/api";
-import { type Role, type User } from "@packages/db";
+import { User, type Role } from "@packages/db";
 
+export type RequireAuthReturnedProps = { _user: string };
 export type ProtectedPage = NextPage<{ user: User }>;
 
 /**
@@ -44,9 +46,9 @@ export const requireAuth = (
     return {
       ...additionalProps,
       props: {
-        user,
+        _user: superjson.stringify(user),
         ...buildClerkProps(ctx.req),
-      },
+      } as RequireAuthReturnedProps,
     };
   };
 };
@@ -55,6 +57,7 @@ const redirect = (ctx: GetServerSidePropsContext, loggedIn?: boolean) => ({
   props: buildClerkProps(ctx.req),
   redirect: {
     permanent: false,
+
     // todo fix this because it can redirect to external sites - security issue
     // todo fix "/" because it might not be the main page
     destination: loggedIn

@@ -1,12 +1,10 @@
 import { authRouter } from "./routers/auth";
-import { exampleRouter } from "./routers/example";
-import { fileRouter } from "./routers/file";
+import { postsRouter } from "./routers/posts";
 import { createRouter } from "./trpc";
 
 export const appRouter = createRouter({
   auth: authRouter,
-  example: exampleRouter,
-  file: fileRouter,
+  posts: postsRouter,
 });
 
 export type AppRouter = typeof appRouter;
