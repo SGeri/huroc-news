@@ -24,7 +24,7 @@ export default function Card({ image, category, timestamp, title }: CardProps) {
         />
 
         <div className="mt-2 flex flex-col justify-center p-2">
-          <div className="flex flex-row">
+          <div className="flex flex-row text-lg">
             <p className="mr-2 text-white">
               {formatCategories(category).join(", ")}
               {" | "}
@@ -33,7 +33,7 @@ export default function Card({ image, category, timestamp, title }: CardProps) {
               {days(timestamp).format("YYYY. MMMM DD.")}
             </p>
           </div>
-          <p className="text-white">{title}</p>
+          <p className="text-2xl text-white">{title}</p>
         </div>
       </div>
 
