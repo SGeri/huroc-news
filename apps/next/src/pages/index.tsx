@@ -1,7 +1,6 @@
 import { useRef, useState } from "react";
 import { SignOutButton } from "@clerk/nextjs";
 import {
-  Box,
   Button,
   Center,
   Container,
@@ -15,19 +14,27 @@ import { api } from "~/utils/api";
 import { ProtectedPage, requireAuth } from "~/utils/auth";
 import { withParsedUser } from "~/utils/guard";
 import Card from "~/components/Card";
+import Form, { type FormValues } from "~/components/Form";
 
 const Home: ProtectedPage = ({ user }) => {
   const ref = useRef<HTMLDivElement>(null);
   const [take, setTake] = useState(5);
-  const [skip, setSkip] = useState(0);
-  const { data, isLoading } = api.posts.getPosts.useQuery(
+  const {
+    data,
+    isLoading: getPostsLoading,
+    refetch,
+  } = api.posts.getPosts.useQuery(
     {
       take: take,
-      skip: skip,
+      skip: 0,
     },
     { keepPreviousData: true },
   );
   const { total, posts } = data || {};
+
+  const [opened, setOpened] = useState(false);
+  const { mutateAsync: createPost, isLoading: createPostLoading } =
+    api.posts.createPost.useMutation();
 
   const handleScrollPositionChange = ({ x }: { x: number }) => {
     if (!ref.current) return;
@@ -37,11 +44,21 @@ const Home: ProtectedPage = ({ user }) => {
 
     if (scrollX >= width && total != posts?.length) {
       // improve by adjusting ending offset
-      setTake((prevTake) => prevTake + 1);
+      setTake((prevTake) => prevTake + 3);
     }
   };
 
-  console.log("posts", posts);
+  const handleNewClick = () => {
+    setOpened(true);
+  };
+
+  const handleNewPostCreate = async (values: FormValues) => {
+    await createPost(values);
+
+    setOpened(false);
+
+    refetch();
+  };
 
   return (
     <Container py="lg">
@@ -58,15 +75,25 @@ const Home: ProtectedPage = ({ user }) => {
         Administration & Management
       </Text>
       <Center p="md">
+        <Button onClick={handleNewClick}>Add</Button>
         <SignOutButton>
           <Button>Logout</Button>
         </SignOutButton>
       </Center>
 
-      {isLoading && (
+      {getPostsLoading && (
         <Center>
           <Loader />
         </Center>
+      )}
+
+      {opened && (
+        <Form
+          opened={opened}
+          loading={createPostLoading}
+          onClose={() => setOpened(false)}
+          onSubmit={handleNewPostCreate}
+        />
       )}
 
       <ScrollArea
@@ -85,7 +112,7 @@ const Home: ProtectedPage = ({ user }) => {
               title={post.title}
             />
           ))}
-          {!isLoading && total != posts?.length && (
+          {!getPostsLoading && total != posts?.length && (
             <Center>
               <Loader />
             </Center>

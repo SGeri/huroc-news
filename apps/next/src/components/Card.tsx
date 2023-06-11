@@ -21,6 +21,7 @@ export default function Card({ image, category, timestamp, title }: CardProps) {
           alt=""
           width={1067}
           height={600}
+          priority
         />
 
         <div className="mt-2 flex flex-col justify-center p-2">

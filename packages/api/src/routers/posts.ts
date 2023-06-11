@@ -1,5 +1,17 @@
 import { z } from "zod";
-import { createRouter, publicProcedure } from "../trpc";
+import { adminProcedure, createRouter, publicProcedure } from "../trpc";
+
+// use typescipt magic to get the categories from Category enum
+const categories = [
+  "SERVICE_STATUS",
+  "GTA_ONLINE",
+  "GTA_VI",
+  "GTA_TRIOLOGY",
+  "RED_DEAD_ONLINE",
+  "ROCKSTAR_GAMES",
+  "TAKE_TWO",
+  "HUROC",
+] as const;
 
 export const postsRouter = createRouter({
   getPosts: publicProcedure
@@ -28,5 +40,27 @@ export const postsRouter = createRouter({
       ]);
 
       return { total, posts, pinned };
+    }),
+
+  createPost: adminProcedure
+    .input(
+      z.object({
+        title: z.string().min(1),
+        category: z.array(z.enum(categories)).min(1),
+        image: z.string().min(1),
+        link: z.string().min(1),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const post = await ctx.prisma.post.create({
+        data: {
+          title: input.title,
+          category: input.category,
+          image: input.image,
+          link: input.link,
+        },
+      });
+
+      return post;
     }),
 });

@@ -8,12 +8,16 @@ import { Tabs, useRouter } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
 import { ClerkProvider } from "@clerk/clerk-expo";
+import days from "dayjs";
 import HeaderRight from "../components/Header/HeaderRight";
 import HeaderTitle from "../components/Header/HeaderTitle";
 import { TRPCProvider } from "../utils/api";
 import fonts from "../utils/fonts";
 import { getItem } from "../utils/storage";
 import tokenCache from "../utils/tokenCache";
+
+// Localization
+days.locale("hu");
 
 const clerkPublishableKey = Constants.expoConfig?.extra
   ?.clerkPublishableKey as string;

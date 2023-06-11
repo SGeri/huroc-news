@@ -8,6 +8,7 @@ import { Notifications } from "@mantine/notifications";
 import { api } from "~/utils/api";
 import "dayjs/locale/hu";
 import localFont from "next/font/local";
+import { ModalsProvider } from "@mantine/modals";
 import days from "dayjs";
 
 // Localization
@@ -78,11 +79,13 @@ const MyApp: AppType = ({ Component, pageProps }) => (
         withGlobalStyles
         theme={{ colorScheme: "dark" }}
       >
-        <Notifications limit={5} />
+        <ModalsProvider>
+          <Notifications limit={5} />
 
-        <main>
-          <Component {...pageProps} />
-        </main>
+          <main>
+            <Component {...pageProps} />
+          </main>
+        </ModalsProvider>
       </MantineProvider>
     </ClerkProvider>
   </div>
