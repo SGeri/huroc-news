@@ -4,7 +4,7 @@ import { useLocalSearchParams, useRouter } from "expo-router";
 type SearchParams = Record<string, string | string[]>;
 
 export type RouteProps<T> = {
-  params: Partial<T>;
+  params: T;
   navigate: (pathname: string) => void;
 };
 
@@ -22,6 +22,8 @@ export const keepParams = <T extends SearchParams>(
       });
     };
 
-    return <Route params={params} navigate={navigate} />;
+    // Type Conversion: Partial<T> -> T.
+    // Type-safe since useLocalSearchParams returns a Partial<T>, but T is always kept in navigate()
+    return <Route params={params as unknown as T} navigate={navigate} />;
   };
 };
