@@ -3,13 +3,13 @@ import { buildClerkProps, getAuth } from "@clerk/nextjs/server";
 
 export const requireAuth = () => {
   return async (ctx: GetServerSidePropsContext) => {
-    const user = getAuth(ctx.req);
+    const { userId } = getAuth(ctx.req);
 
-    if (!user.userId) return redirect(ctx);
+    if (!userId) return redirect(ctx);
 
     return {
       props: {
-        user,
+        userId,
         ...buildClerkProps(ctx.req),
       },
     };
