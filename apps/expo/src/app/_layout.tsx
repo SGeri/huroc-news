@@ -135,6 +135,7 @@ const RootLayout = () => {
             {/* Hidden Routes */}
             {hiddenRoutes.map((route) => (
               <Tabs.Screen
+                key={route}
                 name={route}
                 options={{
                   href: null,

@@ -11,7 +11,7 @@ export const postsRouter = createRouter({
       }),
     )
     .query(async ({ ctx, input }) => {
-      const [total, posts] = await ctx.prisma.$transaction([
+      const [total, posts, pinned] = await ctx.prisma.$transaction([
         ctx.prisma.post.count(),
         ctx.prisma.post.findMany({
           skip: input.skip,
@@ -20,10 +20,13 @@ export const postsRouter = createRouter({
             createdAt: input.orderBy || "desc",
           },
         }),
+        ctx.prisma.post.findFirst({
+          where: {
+            pinned: true,
+          },
+        }),
       ]);
 
-      // await new Promise((r) => setTimeout(r, 300)); // artificial delay for simulating loading
-
-      return { total, posts };
+      return { total, posts, pinned };
     }),
 });

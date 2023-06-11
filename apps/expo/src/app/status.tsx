@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
   ActivityIndicator,
   RefreshControl,
@@ -20,7 +20,7 @@ const statusTexts = {
   UP: "Elérhető / UP",
   LIMITED: "Korlátozott / Limited",
   DOWN: "Nem elérhető / Down",
-};
+} as const;
 
 type Status = keyof typeof statusColors;
 
@@ -58,6 +58,7 @@ export default function Page() {
   const {
     data: status,
     isLoading: loading,
+    isFetching: fetching,
     refetch,
   } = api.status.getStatus.useQuery();
   const header = getHeader(status);
@@ -87,7 +88,7 @@ export default function Page() {
     <ScrollView
       className="bg-[#121212]"
       refreshControl={
-        <RefreshControl refreshing={loading} onRefresh={refetch} />
+        <RefreshControl refreshing={!loading && fetching} onRefresh={refetch} />
       }
     >
       {loading ? (
@@ -130,7 +131,10 @@ export default function Page() {
                 if (!service) return;
 
                 return (
-                  <View className="mb-10 w-full rounded-md border border-white bg-black p-5">
+                  <View
+                    key={serviceName}
+                    className="mb-10 w-full rounded-md border border-white bg-black p-5"
+                  >
                     <Text className="font-chairdrobe-rounded-bold mb-5 text-3xl text-white">
                       {serviceName}
                     </Text>
@@ -140,11 +144,29 @@ export default function Page() {
 
                       if (!status) return;
 
+                      const text = statusTexts[status as Status];
+                      const color = statusColors[status as Status];
+
                       return (
-                        <PlatformInfoBox
-                          platform={platform}
-                          status={status as unknown as Status}
-                        />
+                        <View key={platform} className="mb-4">
+                          <View className="flex flex-row">
+                            <Icon
+                              style={{ margin: 5 }}
+                              name="circle"
+                              size={15}
+                              color={color}
+                            />
+                            <Text
+                              className="font-noto-sans-bold ml-1 text-lg text-white"
+                              style={{ color }}
+                            >
+                              {platform}
+                            </Text>
+                          </View>
+                          <Text className="font-noto-sans-bold ml-7 text-lg text-white">
+                            {text}
+                          </Text>
+                        </View>
                       );
                     })}
                   </View>
@@ -241,32 +263,5 @@ export default function Page() {
         </>
       )}
     </ScrollView>
-  );
-}
-
-type PlatformInfoBoxProps = {
-  status: Status;
-  platform: string;
-};
-
-function PlatformInfoBox({ status, platform }: PlatformInfoBoxProps) {
-  const color = statusColors[status];
-  const text = statusTexts[status];
-
-  return (
-    <View className="mb-4">
-      <View className="flex flex-row">
-        <Icon style={{ margin: 5 }} name="circle" size={15} color={color} />
-        <Text
-          className="font-noto-sans-bold ml-1 text-lg text-white"
-          style={{ color }}
-        >
-          {platform}
-        </Text>
-      </View>
-      <Text className="font-noto-sans-bold ml-7 text-lg text-white">
-        {text}
-      </Text>
-    </View>
   );
 }

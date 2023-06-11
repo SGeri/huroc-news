@@ -7,6 +7,8 @@ export const statusRouter = createRouter({
     const status = statusService.parseJSON(rawStatus);
     const filteredStatus = statusService.filterStatus(status);
 
+    // await new Promise((r) => setTimeout(r, 300)); // artificial delay for simulating loading
+
     return filteredStatus;
   }),
 });

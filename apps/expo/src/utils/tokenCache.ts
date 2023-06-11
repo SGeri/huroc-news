@@ -1,9 +1,9 @@
 import { getItemAsync, setItemAsync } from "expo-secure-store";
 
-export interface TokenCache {
+export type TokenCache = {
   getToken: (key: string) => Promise<string | undefined | null>;
   saveToken: (key: string, token: string) => Promise<void>;
-}
+};
 
 type Key = string;
 type Token = string;

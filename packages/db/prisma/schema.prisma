@@ -27,6 +27,7 @@ model Post {
   category  Category[]
   image     String
   link      String
+  pinned    Boolean    @default(false)
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
 }

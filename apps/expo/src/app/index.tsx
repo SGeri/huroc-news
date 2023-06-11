@@ -5,302 +5,146 @@ import {
   Linking,
   RefreshControl,
   ScrollView,
-  StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from "react-native";
-import Icon from "react-native-vector-icons/FontAwesome";
-import IconFontisto from "react-native-vector-icons/Fontisto";
-
-const monthNames = [
-  "január",
-  "február",
-  "március",
-  "április",
-  "május",
-  "június",
-  "július",
-  "augusztus",
-  "szeptember",
-  "október",
-  "november",
-  "december",
-];
-
-const styles = StyleSheet.create({
-  loadingWrapper: {
-    height: "100%",
-    width: "100%",
-    padding: "10%",
-  },
-  container: {
-    padding: "8%",
-  },
-  cardWrapper: {
-    height: 320,
-    width: "100%",
-    borderRadius: 5,
-    backgroundColor: "#000000",
-    marginBottom: "10%",
-    borderWidth: 1,
-    borderColor: "rgba(255,255,255,0.5)",
-  },
-  cardImage: {
-    width: "100%",
-    height: "60%",
-    borderTopLeftRadius: 5,
-    borderTopRightRadius: 5,
-  },
-  cardTextWrapper: {
-    height: "40%",
-    padding: "5%",
-
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-  },
-  cardTimestampWrapper: {
-    flexDirection: "row",
-  },
-  cardTimestamp: {
-    fontFamily: "NotoSansRegular",
-    fontSize: 12,
-  },
-  cardTitle: {
-    color: "white",
-    fontFamily: "NotoSansBold",
-    fontSize: 18,
-  },
-  pinnedPostWrapper: {
-    width: "100%",
-    height: 400,
-    backgroundColor: "#000000",
-    borderBottomColor: "rgba(255,255,255,0.5)",
-    borderBottomWidth: 1,
-  },
-  pinnedImage: {
-    width: "100%",
-    height: "60%",
-  },
-  loadMoreButton: {
-    height: 40,
-    width: 180,
-
-    borderWidth: 1,
-    borderColor: "white",
-    borderRadius: 5,
-    backgroundColor: "#000000",
-
-    padding: 5,
-  },
-  loadMoreButtonText: {
-    color: "white",
-    fontFamily: "ChairdrobeRoundedBold",
-    textAlign: "center",
-    fontSize: 22,
-  },
-  buttonWrapper: {
-    flex: 1,
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-});
+import dayjs from "dayjs";
+import { Category } from "@packages/db";
+import { api } from "../utils/api";
 
 export default function Page() {
-  const [activePostData, setActivePostData] = useState([]);
-  const [fullPostData, setFullPostData] = useState([]);
-  const [lastPostLoadedIndex, setLastPostLoadedIndex] = useState(0);
-  const [refreshing, setRefreshing] = useState(false);
-  const [loading, setLoading] = useState(true);
-  const [pinnedPost, setPinnedPost] = useState({});
+  const [take, setTake] = useState(5);
+  const {
+    data,
+    isLoading: loading,
+    isFetching: fetching,
+    refetch,
+  } = api.posts.getPosts.useQuery(
+    {
+      take: take,
+      skip: 0,
+    },
+    { keepPreviousData: true },
+  );
+  const { total, posts, pinned } = data || {};
 
-  const refreshData = () => {
-    // api handler return mock data
+  const handleLoadMoreClick = () => {
+    if (loading) return;
 
-    const response = {
-      data: {
-        success: true,
-        message: "Sikeresen lekérdezve.",
-        pinnedPost: {
-          id: 30,
-          title: "Bemutatkozik a GTA+ a GTA Online-hoz",
-          releaseDate: "2022-04-16T16:11:25.037Z",
-          thumbURL: "https://pbs.twimg.com/media/FwapqHMaEAECXBO.jpg:large",
-          category: "GTA Online",
-          link: "https://huroc.com/introducing-gta-plus/",
-        },
-        posts: [
-          {
-            id: 32,
-            title:
-              "Megérkezett a GTAV és a GTA Online PS5 és Xbox Series X|S kiadása",
-            releaseDate: "2022-04-16T16:12:18.715Z",
-            thumbURL:
-              "https://rockstarintel.com/wp-content/uploads/2022/07/1920-1.jpg",
-            category: "GTAV",
-            link: "https://huroc.com/gtav-and-gta-online-out-now/",
-          },
-          {
-            id: 31,
-            title:
-              "A Tough Business bónuszok a Red Dead Online-ban egész hónapban",
-            releaseDate: "2022-04-16T16:11:49.624Z",
-            thumbURL:
-              "https://rockstarintel.com/wp-content/uploads/2022/07/1920-1.jpg",
-            category: "Red Dead Online",
-            link: "https://huroc.com/red-dead-online-weekly-update-22-04-05",
-          },
-          {
-            id: 29,
-            title: "Középpontban a Gunrunning Criminal Career a GTA Online-ban",
-            releaseDate: "2022-04-16T16:10:54.837Z",
-            thumbURL:
-              "https://rockstarintel.com/wp-content/uploads/2022/07/1920-1.jpg",
-            category: "GTA Online",
-            link: "https://huroc.com/gta-online-weekly-update-22-04-14/",
-          },
-        ],
-      },
-    };
-
-    if (response.data.success) {
-      setPinnedPost(response.data.pinnedPost);
-      setFullPostData(response.data.posts);
-      setActivePostData(response.data.posts.slice(0, 5));
-      setLastPostLoadedIndex(4);
-    } else {
-      alert("Hiba történt: " + response.data.message);
-    }
-
-    setLoading(false);
+    setTake((prev) => prev + 5);
   };
-
-  const formatTimestamp = (timestamp) => {
-    let date = new Date(timestamp);
-
-    let day = date.getDate();
-    let month = date.getMonth() + 1;
-    let year = date.getFullYear();
-
-    return `${year}. ${monthNames[month - 1]} ${day}.`;
-  };
-
-  const loadMore = () => {
-    let newPostData = fullPostData.slice(
-      lastPostLoadedIndex + 1,
-      lastPostLoadedIndex + 5,
-    );
-    let newActivePostData = [...activePostData, ...newPostData];
-
-    setActivePostData(newActivePostData);
-    setLastPostLoadedIndex(lastPostLoadedIndex + newPostData.length);
-  };
-
-  const onRefresh = async () => {
-    setRefreshing(true);
-    refreshData();
-    setRefreshing(false);
-  };
-
-  useEffect(() => {
-    refreshData();
-  }, []);
-
-  const posts = activePostData.map((post, index) => {
-    return (
-      <NewsCard
-        key={index}
-        title={post.title}
-        thumbURL={post.thumbURL}
-        category={post.category}
-        timestamp={formatTimestamp(post.releaseDate)}
-        link={post.link}
-      />
-    );
-  });
 
   return (
     <ScrollView
-      style={{ backgroundColor: "#121212" }}
+      className="bg-[#121212]"
       refreshControl={
-        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        <RefreshControl refreshing={loading} onRefresh={refetch} />
       }
     >
       {loading ? (
-        <View style={styles.loadingWrapper}>
+        <View className="h-full w-full p-10">
           <ActivityIndicator size="large" color="#ffa500" />
         </View>
       ) : (
-        <View style={{ backgroundColor: "#121212" }}>
-          {pinnedPost && (
+        <>
+          {pinned && (
             <TouchableOpacity
-              style={[styles.pinnedPostWrapper, { marginBottom: "5%" }]}
+              className="mb-4 h-96 w-full border-b border-[#ffffff80] bg-black"
               activeOpacity={0.8}
               onPress={() => {
-                Linking.openURL(pinnedPost.link);
+                Linking.openURL(pinned.link);
               }}
             >
               <Image
-                style={styles.pinnedImage}
-                source={{ uri: pinnedPost.thumbURL }}
+                className="h-[60%] w-full"
+                source={{ uri: pinned.image }}
               />
-              <View style={[styles.cardTextWrapper, { padding: "8%" }]}>
-                <View style={styles.cardTimestampWrapper}>
-                  <Text style={[styles.cardTimestamp, { color: "white" }]}>
-                    {pinnedPost.category} |{" "}
+              <View className="flex h-[40%] flex-col justify-center p-8">
+                <View className="flex flex-row">
+                  <Text className="font-noto-sans-regular text-sm text-white">
+                    {pinned.category.join(" ")} |{" "}
                   </Text>
-                  <Text style={[styles.cardTimestamp, { color: "grey" }]}>
-                    {formatTimestamp(pinnedPost.releaseDate)}
+                  <Text className="font-noto-sans-regular text-sm text-gray-600">
+                    {dayjs(pinned.createdAt).format("YYYY. MMMM DD. HH:mm")}
                   </Text>
                 </View>
-                <Text style={[styles.cardTitle, { fontSize: 20 }]}>
-                  {pinnedPost.title}
+                <Text className="font-noto-sans-bold text-xl text-white">
+                  {pinned.title}
                 </Text>
               </View>
             </TouchableOpacity>
           )}
-          <View style={styles.container}>
-            {posts}
-            {lastPostLoadedIndex != fullPostData.length - 1 && (
-              <View style={styles.buttonWrapper}>
+          <View className="p-8">
+            {posts &&
+              posts.length > 0 &&
+              posts.map((post, index) => {
+                if (post.pinned) return null;
+
+                return (
+                  <Card
+                    key={index}
+                    title={post.title}
+                    image={post.image}
+                    category={post.category}
+                    timestamp={post.createdAt}
+                    link={post.link}
+                  />
+                );
+              })}
+
+            {total != (posts || []).length && (
+              <View className="flex flex-1 flex-col items-center justify-center gap-4">
+                {!loading && fetching && (
+                  <ActivityIndicator size="large" color="#ffa500" />
+                )}
+
                 <TouchableOpacity
-                  style={[styles.loadMoreButton]}
-                  onPress={loadMore}
+                  className="h-10 w-44 rounded-md border border-white bg-black p-1"
+                  onPress={handleLoadMoreClick}
                   activeOpacity={0.8}
                 >
-                  <Text style={styles.loadMoreButtonText}>Több betöltése</Text>
+                  <Text className="font-chairdrobe-rounded-bold text-center text-2xl text-white">
+                    Több betöltése
+                  </Text>
                 </TouchableOpacity>
               </View>
             )}
           </View>
-        </View>
+        </>
       )}
     </ScrollView>
   );
 }
 
-function NewsCard(props) {
+type CardProps = {
+  title: string;
+  image: string;
+  category: Category[];
+  timestamp: Date;
+  link: string;
+};
+
+function Card({ title, image, category, timestamp, link }: CardProps) {
   return (
     <TouchableOpacity
-      style={styles.cardWrapper}
+      className="mb-5 h-80 w-full rounded-md border border-[#ffffff80] bg-black"
       activeOpacity={0.8}
       onPress={() => {
-        Linking.openURL(props.link);
+        Linking.openURL(link);
       }}
     >
-      <Image style={styles.cardImage} source={{ uri: props.thumbURL }} />
-      <View style={styles.cardTextWrapper}>
-        <View style={styles.cardTimestampWrapper}>
-          <Text style={[styles.cardTimestamp, { color: "white" }]}>
-            {props.category} |{" "}
+      <Image source={{ uri: image }} className="h-[60%] w-full rounded-md" />
+      <View className="flex h-[40%] flex-col justify-center p-5">
+        <View className="flex flex-row">
+          <Text className="font-noto-sans-regular text-sm text-white">
+            {category.join(" ")} |{" "}
           </Text>
-          <Text style={[styles.cardTimestamp, { color: "grey" }]}>
-            {props.timestamp}
+          <Text className="font-noto-sans-regular text-sm text-gray-600">
+            {dayjs(timestamp).format("YYYY. MMMM DD.")}
           </Text>
         </View>
-        <Text style={[styles.cardTitle]}>{props.title}</Text>
+        <Text className="font-noto-sans-bold text-lg text-white">{title}</Text>
       </View>
     </TouchableOpacity>
   );
