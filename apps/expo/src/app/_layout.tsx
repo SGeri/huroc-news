@@ -72,7 +72,7 @@ const RootLayout = () => {
               headerTitle: () => <HeaderTitle newsLink={NEWS_LINK} />,
               headerRight: () => (
                 <HeaderRight
-                  color="green"
+                  color="#00FF00" // zöld #00FF00, sárga #ffa500, piros #FF0000
                   contactLink={CONTACT_LINK}
                   statusLink={STATUS_LINK}
                 />

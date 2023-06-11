@@ -1,8 +1,8 @@
 import { z } from "zod";
-import { adminProcedure, createRouter } from "../trpc";
+import { createRouter, publicProcedure } from "../trpc";
 
 export const postsRouter = createRouter({
-  getPosts: adminProcedure
+  getPosts: publicProcedure
     .input(
       z.object({
         skip: z.number(),

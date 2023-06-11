@@ -3,417 +3,189 @@ import {
   ActivityIndicator,
   RefreshControl,
   ScrollView,
-  StyleSheet,
   Text,
   View,
 } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
+import dayjs from "dayjs";
+import { RouterOutputs, api } from "~/utils/api";
 
-const styles = StyleSheet.create({
-  loadingWrapper: {
-    height: "100%",
-    width: "100%",
-    padding: "10%",
-  },
-  container: {
-    alignItems: "center",
-    paddingLeft: "8%",
-    paddingRight: "8%",
-  },
-  header: {
-    fontFamily: "ChairdrobeRoundedBold",
-    fontSize: 42,
-    color: "white",
-  },
-  title: {
-    fontFamily: "NotoSansBold",
-    fontSize: 18,
-    color: "white",
-    textAlign: "center",
-  },
-  subTitle: {
-    fontFamily: "NotoSansRegular",
-    fontSize: 14,
-    color: "white",
-    textAlign: "center",
-  },
-  messageWrapper: {
-    backgroundColor: "#000000",
-    padding: "8%",
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: 5,
-    marginBottom: "5%",
-    width: "100%",
-    borderColor: "#ffffff",
-    borderWidth: 1,
-  },
-  messageTitle: {
-    fontFamily: "ChairdrobeRoundedBold",
-    fontSize: 26,
-    color: "white",
-    marginBottom: 20,
-  },
-  messageText: {
-    fontFamily: "NotoSansRegular",
-    fontSize: 14,
-    color: "white",
-    textAlign: "center",
-  },
-  platformWrapper: {
-    width: "100%",
-    padding: "5%",
-    backgroundColor: "#000000",
-    borderRadius: 5,
-    marginBottom: "10%",
-    borderColor: "#ffffff",
-    borderWidth: 1,
-  },
-  platformRow: {
-    flexDirection: "row",
-  },
-  platformText: {
-    fontFamily: "NotoSansBold",
-    fontSize: 18,
-    color: "white",
-    marginLeft: 5,
-  },
-});
+const statusColors = {
+  UP: "#00FF00",
+  LIMITED: "#FFA500",
+  DOWN: "#FF0000",
+} as const;
+
+const statusTexts = {
+  UP: "Elérhető / UP",
+  LIMITED: "Korlátozott / Limited",
+  DOWN: "Nem elérhető / Down",
+};
+
+type Status = keyof typeof statusColors;
+
+function getHeader(status: RouterOutputs["status"]["getStatus"] | undefined) {
+  if (!status) return { text: "", color: "" };
+
+  let text = "Jelenleg minden szolgáltatás állapota: Elérhető / UP";
+  let color = "#00ff00";
+
+  Object.values(status).every((platform) =>
+    Object.values(platform).forEach((status) => {
+      if (status === "UP") return;
+
+      if (status === "LIMITED") {
+        text = "Néhány szolgáltatás állapota jelenleg: Korlátozott / Limited";
+        color = "#ffa500";
+        return;
+      }
+
+      if (status === "DOWN") {
+        text = "Néhány szolgáltatás állapota jelenleg: Nem elérhető / Down";
+        color = "#ff0000";
+        return;
+      }
+    }),
+  );
+
+  return {
+    text,
+    color,
+  };
+}
 
 export default function Page() {
-  const [statusData, setStatusData] = useState({});
-  const [messages, setMessages] = useState([]);
-  const [refreshing, setRefreshing] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const {
+    data: status,
+    isLoading: loading,
+    refetch,
+  } = api.status.getStatus.useQuery();
+  const header = getHeader(status);
 
-  const refreshData = async () => {
-    await loadStatus();
-  };
+  const messages: any[] = [];
 
-  const loadStatus = async () => {
-    setLoading(true);
-
-    const response = {
-      data: {
-        success: true,
-        message: "Sikeresen lekérdezve.",
-        status: {
-          GTAO: {
-            PC: "Elérhető / UP",
-            PS4: "Elérhető / UP",
-            X1: "Elérhető / UP",
-            XCG: "Elérhető / UP",
-          },
-          RDO: {
-            PC: "Elérhető / UP",
-            PS4: "Elérhető / UP",
-            X1: "Elérhető / UP",
-            Stadia: "Elérhető / UP",
-            XCG: "Elérhető / UP",
-          },
-          RGL: {
-            Authentication: "Elérhető / UP",
-            Store: "Elérhető / UP",
-            CS: "Elérhető / UP",
-            Downloads: "Elérhető / UP",
-          },
-          SC: {
-            AS: "Elérhető / UP",
-          },
-        },
-      },
-    };
-
-    if (response.data.success) {
-      setStatusData(response.data.status);
-    } else {
-      alert("Hiba történt: " + response.data.message);
-    }
-
-    const response2 = {
-      data: {
-        success: true,
-        message: "Az üzenetek sikeresen lekérdezve.",
-        messages: ["Jelenleg karbantartásokat végzünk oldalunkon."],
-      },
-    };
-
-    if (response2.data.success) {
-      setMessages(response2.data.messages);
-    } else {
-      alert("Hiba történt: " + response2.data.message);
-    }
-
-    setLoading(false);
-  };
-
-  const onRefresh = async () => {
-    setRefreshing(true);
-    await refreshData();
-    setRefreshing(false);
-  };
-
-  const getHeaderStatus = () => {
-    let statusHeader = "";
-
-    for (const [statusCategory, statusCategoryValue] of Object.entries(
-      statusData,
-    )) {
-      for (const [statusPlatform, statusPlatformValue] of Object.entries(
-        statusCategoryValue,
-      )) {
-        if (statusPlatformValue === "Korlátozott / Limited") {
-          statusHeader =
-            "Néhány szolgáltatás állapota jelenleg: Korlátozott / Limited";
-          break;
-        } else if (statusPlatformValue === "Nem elérhető / Down") {
-          statusHeader =
-            "Néhány szolgáltatás állapota jelenleg: Nem elérhető / Down";
-          break;
-        } else if (
-          statusCategory === "SC" &&
-          statusPlatform === "AS" &&
-          statusPlatformValue === "Elérhető / UP"
-        ) {
-          statusHeader = "Jelenleg minden szolgáltatás állapota: Elérhető / UP";
-        }
-      }
-    }
-
-    return statusHeader;
-  };
-
-  useEffect(() => {
-    refreshData();
-  }, []);
-
+  // todo implement messages
   const messageBoxes = messages.map((message, index) => {
     return (
-      <View style={styles.messageWrapper} key={index}>
-        <Text style={styles.messageTitle}>Közlemény</Text>
-        <Text style={styles.messageText}>{message}</Text>
+      <View
+        key={index}
+        className="mb-5 w-full items-center justify-center rounded-md border border-white bg-black p-8"
+      >
+        <Text className="font-chairdrobe-rounded-bold mb-5 text-3xl text-white">
+          Közlemény
+        </Text>
+        <Text className="font-noto-sans-regular text-center text-sm text-white">
+          {message}
+        </Text>
       </View>
     );
   });
 
-  let statusHeader = getHeaderStatus();
-
-  let statusHeaderColor = "";
-
-  if (
-    statusHeader ==
-    "Néhány szolgáltatás állapota jelenleg: Korlátozott / Limited"
-  )
-    statusHeaderColor = "#FFA500";
-  if (
-    statusHeader == "Néhány szolgáltatás állapota jelenleg: Nem elérhető / Down"
-  )
-    statusHeaderColor = "#FF0000";
-  if (statusHeader == "Jelenleg minden szolgáltatás állapota: Elérhető / UP")
-    statusHeaderColor = "#00FF00";
-
-  let date = new Date();
-  let dateString =
-    date.getFullYear() +
-    ". " +
-    ("0" + (date.getMonth() + 1)).slice(-2) +
-    ". " +
-    ("0" + date.getDate()).slice(-2) +
-    ". " +
-    ("0" + date.getHours()).slice(-2) +
-    ":" +
-    ("0" + date.getMinutes()).slice(-2);
+  const now = dayjs(new Date()).format("YYYY. MM. DD. HH:mm");
 
   return (
     <ScrollView
-      refreshing={refreshing}
+      className="bg-[#121212]"
       refreshControl={
-        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        <RefreshControl refreshing={loading} onRefresh={refetch} />
       }
     >
       {loading ? (
-        <View style={styles.loadingWrapper}>
+        <View className="h-full w-full p-10">
           <ActivityIndicator size="large" color="#ffa500" />
         </View>
       ) : (
-        <View style={{ backgroundColor: "#121212" }}>
-          <View style={styles.container}>
-            <Text style={[styles.header, { marginTop: "10%" }]}>
-              Rockstar Games
-            </Text>
-            <Text style={[styles.header, { marginBottom: "13%" }]}>
-              Service Status
-            </Text>
+        <>
+          <View className="flex items-center px-10">
+            <View className="my-10 flex items-center">
+              <Text className="font-chairdrobe-rounded-bold whi text-5xl text-white">
+                Rockstar Games
+              </Text>
+              <Text className="font-chairdrobe-rounded-bold whi text-5xl text-white">
+                Service Status
+              </Text>
+            </View>
 
-            <Icon name="wifi" size={40} color={statusHeaderColor} />
+            <Icon name="wifi" size={40} color={header.color} />
 
             <Text
-              style={[
-                styles.title,
-                {
-                  marginTop: "5%",
-                  color: statusHeaderColor,
-                },
-              ]}
+              className="font-noto-sans-bold mt-5 text-center text-lg text-white"
+              style={{ color: header.color }}
             >
-              {statusHeader}
+              {header.text}
             </Text>
-            <Text
-              style={[
-                styles.subTitle,
-                { marginTop: "2%", marginBottom: "20%" },
-              ]}
-            >
-              Utoljára frissítve: {dateString}
+            <Text className="font-noto-sans-regular mb-14 mt-2 text-center text-sm text-white">
+              Utoljára frissítve: {now}
             </Text>
 
             {messages.length > 0 && (
-              <View style={{ width: "100%", marginBottom: "20%" }}>
-                {messageBoxes}
-              </View>
+              <View className="mb-16 w-full">{messageBoxes}</View>
             )}
           </View>
-          <View style={styles.container}>
-            {statusData.GTAO && (
-              <View style={[styles.platformWrapper]}>
-                <Text
-                  style={[styles.header, { fontSize: 30, marginBottom: 20 }]}
-                >
-                  GTA Online
-                </Text>
+          <View className="flex items-center px-10">
+            {status &&
+              Object.keys(status).map((serviceName) => {
+                const service = status[serviceName];
 
-                <PlatformInfoBox platform="PC" status={statusData.GTAO.PC} />
-                <PlatformInfoBox platform="PS4" status={statusData.GTAO.PS4} />
-                <PlatformInfoBox
-                  platform="Xbox One"
-                  status={statusData.GTAO.X1}
-                />
-                <PlatformInfoBox
-                  platform="Xbox Cloud Gaming"
-                  status={statusData.GTAO.XCG}
-                />
-              </View>
-            )}
-            {statusData.RDO && (
-              <View style={styles.platformWrapper}>
-                <Text
-                  style={[styles.header, { fontSize: 30, marginBottom: 20 }]}
-                >
-                  Red Dead Online
-                </Text>
+                if (!service) return;
 
-                <PlatformInfoBox platform="PC" status={statusData.RDO.PC} />
-                <PlatformInfoBox platform="PS4" status={statusData.RDO.PS4} />
-                <PlatformInfoBox
-                  platform="Xbox One"
-                  status={statusData.RDO.X1}
-                />
-                <PlatformInfoBox
-                  platform="Stadia"
-                  status={statusData.RDO.Stadia}
-                />
-                <PlatformInfoBox
-                  platform="Xbox Cloud Gaming"
-                  status={statusData.RDO.XCG}
-                />
-              </View>
-            )}
-            {statusData.RGL && (
-              <View style={styles.platformWrapper}>
-                <Text
-                  style={[styles.header, { fontSize: 30, marginBottom: 20 }]}
-                >
-                  Rockstar Games Launcher
-                </Text>
+                return (
+                  <View className="mb-10 w-full rounded-md border border-white bg-black p-5">
+                    <Text className="font-chairdrobe-rounded-bold mb-5 text-3xl text-white">
+                      {serviceName}
+                    </Text>
 
-                <PlatformInfoBox
-                  platform="Hitelesítés / Authentication"
-                  status={statusData.RGL.Authentication}
-                />
-                <PlatformInfoBox
-                  platform="Bolt / Store"
-                  status={statusData.RGL.Store}
-                />
-                <PlatformInfoBox
-                  platform="Felhő szolgáltatások / Cloud Services"
-                  status={statusData.RGL.CS}
-                />
-                <PlatformInfoBox
-                  platform="Letöltések / Downloads"
-                  status={statusData.RGL.Downloads}
-                />
-              </View>
-            )}
-            {statusData.SC && (
-              <View style={[styles.platformWrapper, { marginBottom: "15%" }]}>
-                <Text
-                  style={[styles.header, { fontSize: 30, marginBottom: "10%" }]}
-                >
-                  Social Club
-                </Text>
+                    {Object.keys(service).map((platform) => {
+                      const status = service[platform];
 
-                <PlatformInfoBox
-                  platform="Minden szolgáltatás"
-                  status={statusData.SC.AS}
-                />
-              </View>
-            )}
+                      if (!status) return;
+
+                      return (
+                        <PlatformInfoBox
+                          platform={platform}
+                          status={status as unknown as Status}
+                        />
+                      );
+                    })}
+                  </View>
+                );
+              })}
           </View>
 
-          <View style={[styles.container, { alignItems: "baseline" }]}>
-            <Text style={[styles.header, { fontSize: 30, marginBottom: "5%" }]}>
+          <View className="flex items-baseline px-10">
+            <Text className="font-chairdrobe-rounded-bold mb-5 text-3xl text-white">
               Mit jelent?
             </Text>
-            <View style={{ marginBottom: "5%" }}>
-              <View style={styles.platformRow}>
+            <View className="mb-5">
+              <View className="flex flex-row">
                 <Icon
                   style={{ margin: 5 }}
                   name="circle"
                   size={15}
-                  color="#00FF0F"
+                  color="#00FF00"
                 />
-                <Text style={[styles.platformText, { color: "#00FF0F" }]}>
+                <Text className="font-noto-sans-bold ml-1 text-lg text-[#00FF00]">
                   Elérhető / UP
                 </Text>
               </View>
-              <Text
-                style={[
-                  styles.platformText,
-                  {
-                    color: "white",
-                    marginLeft: 28,
-                    fontFamily: "NotoSansRegular",
-                    fontSize: 14,
-                  },
-                ]}
-              >
+              <Text className="font-noto-sans-regular ml-7 text-sm text-white">
                 Ebben az esetben a játékok, szolgáltatások probléma nélkül
                 működnek.
               </Text>
             </View>
-            <View style={{ marginBottom: "5%" }}>
-              <View style={styles.platformRow}>
+            <View className="mb-5">
+              <View className="flex flex-row">
                 <Icon
                   style={{ margin: 5 }}
                   name="circle"
                   size={15}
                   color="#FFA500"
                 />
-                <Text style={[styles.platformText, { color: "#FFA500" }]}>
+                <Text className="font-noto-sans-bold ml-1 text-lg text-[#FFA500]">
                   Korlátozott / Limited
                 </Text>
               </View>
-              <Text
-                style={[
-                  styles.platformText,
-                  {
-                    color: "white",
-                    marginLeft: 28,
-                    fontFamily: "NotoSansRegular",
-                    fontSize: 14,
-                  },
-                ]}
-              >
+              <Text className="font-noto-sans-regular ml-7 text-sm text-white">
                 Ebben az esetben az adott játék / szolgáltatás korlátozottan
                 elérhető. Elképzelhető, hogy lehet csatlakozni az adott
                 játékhoz, de súlyos hibák léphetnek fel. Az is előfordulhat,
@@ -424,91 +196,41 @@ export default function Page() {
                 a játékokat, szolgáltatásokat.
               </Text>
             </View>
-            <View style={{ marginBottom: "15%" }}>
-              <View style={styles.platformRow}>
+            <View className="mb-10">
+              <View className="flex flex-row">
                 <Icon
                   style={{ margin: 5 }}
                   name="circle"
                   size={15}
                   color="#FF0000"
                 />
-                <Text style={[styles.platformText, { color: "#FF0000" }]}>
+                <Text className="font-noto-sans-bold ml-1 text-lg text-[#FF0000]">
                   Nem elérhető / Down
                 </Text>
               </View>
-              <Text
-                style={[
-                  styles.platformText,
-                  {
-                    color: "white",
-                    marginLeft: 28,
-                    fontFamily: "NotoSansRegular",
-                    fontSize: 14,
-                  },
-                ]}
-              >
+              <Text className="font-noto-sans-regular ml-7 text-sm text-white">
                 Ebben az esetben az adott játék / szolgáltatás egyáltalán nem
                 elérhető, csatlakozásra és/vagy vásárlásra nincs lehetőség.
               </Text>
             </View>
-            <View
-              style={{
-                marginBottom: "10%",
-                borderTopColor: "white",
-                borderTopWidth: 2,
-                paddingTop: "15%",
-              }}
-            >
-              <Text
-                style={[
-                  styles.platformText,
-                  {
-                    color: "grey",
-                    marginLeft: 28,
-                    fontFamily: "NotoSansRegular",
-                    fontSize: 14,
-                    textAlign: "center",
-                  },
-                ]}
-              >
+            <View className="mb-5 border-t-2 border-white pt-5">
+              <Text className="font-noto-sans-bold ml-1 text-center text-sm text-gray-500">
                 Az oldalon automatikusan frissülnek az adatok a Rockstar Games
                 szervereinek állapota alapján, továbbá ugyanazt tartalmazzák,
                 mint a Rockstar Games Service Status oldal. Az oldalt
                 automatikus robot üzemelteti.
               </Text>
             </View>
-            <View style={{ marginBottom: "10%" }}>
-              <Text
-                style={[
-                  styles.platformText,
-                  {
-                    color: "grey",
-                    marginLeft: 28,
-                    fontFamily: "NotoSansRegular",
-                    fontSize: 14,
-                    textAlign: "center",
-                  },
-                ]}
-              >
+            <View className="mb-5">
+              <Text className="font-noto-sans-bold ml-1 text-center text-sm text-gray-500">
                 Ezt az oldalt nem a Rockstar Games vagy a Take-Two Interactive
                 üzemelteti. A huroc.com oldal nem hivatalos csatorna, a
                 Hungarian Rockstar Fan Club pedig nem áll kapcsolatban sem a
                 Rockstar Games, sem a Take-Two Interactive vállalatokkal.
               </Text>
             </View>
-            <View style={{ marginBottom: "15%" }}>
-              <Text
-                style={[
-                  styles.platformText,
-                  {
-                    color: "grey",
-                    marginLeft: 28,
-                    fontFamily: "NotoSansRegular",
-                    fontSize: 14,
-                    textAlign: "center",
-                  },
-                ]}
-              >
+            <View className="mb-10">
+              <Text className="font-noto-sans-bold ml-1 text-center text-sm text-gray-500">
                 This page in unofficial and is not produced or maintained by
                 Rockstar Games, Inc. or Take-Two Interactive Software, Inc.
                 Please note that we are not affiliated with Rockstar Games and
@@ -516,44 +238,35 @@ export default function Page() {
               </Text>
             </View>
           </View>
-        </View>
+        </>
       )}
     </ScrollView>
   );
 }
 
 type PlatformInfoBoxProps = {
-  status: string;
+  status: Status;
   platform: string;
 };
 
 function PlatformInfoBox({ status, platform }: PlatformInfoBoxProps) {
+  const color = statusColors[status];
+  const text = statusTexts[status];
+
   return (
-    <View style={{ marginBottom: 15 }}>
-      <View style={styles.platformRow}>
-        <Icon
-          style={{ margin: 5 }}
-          name="circle"
-          size={15}
-          color={statusToColor(status)}
-        />
-        <Text style={[styles.platformText, { color: statusToColor(status) }]}>
+    <View className="mb-4">
+      <View className="flex flex-row">
+        <Icon style={{ margin: 5 }} name="circle" size={15} color={color} />
+        <Text
+          className="font-noto-sans-bold ml-1 text-lg text-white"
+          style={{ color }}
+        >
           {platform}
         </Text>
       </View>
-      <Text style={[styles.platformText, { color: "white", marginLeft: 28 }]}>
-        {status}
+      <Text className="font-noto-sans-bold ml-7 text-lg text-white">
+        {text}
       </Text>
     </View>
   );
-}
-
-function statusToColor(status: string) {
-  if (status == "Elérhető / UP") {
-    return "#00FF00";
-  } else if (status == "Korlátozott / Limited") {
-    return "#FFA500";
-  } else {
-    return "#FF0000";
-  }
 }
