@@ -1,39 +1,18 @@
-import { ComponentProps } from "react";
-import { StyleSheet, Text, View } from "react-native";
-
-const styles = StyleSheet.create({
-  button: {
-    borderWidth: 1,
-    borderColor: "#ffa500",
-    borderRadius: 5,
-    backgroundColor: "#000000",
-
-    justifyContent: "center",
-    alignItems: "center",
-
-    padding: 5,
-  },
-  text: {
-    color: "white",
-    fontFamily: "NotoSansBold",
-    textAlign: "center",
-    fontSize: 12,
-  },
-});
-
-type Style = ComponentProps<typeof View>["style"];
+import { Text, View } from "react-native";
 
 export type InfoboxProps = {
   width?: number;
   height?: number;
-  style?: Style;
   text: string;
 };
 
-export default function Infobox({ width, height, style, text }: InfoboxProps) {
+export default function Infobox({ width, height, text }: InfoboxProps) {
   return (
-    <View style={[styles.button, { width: width, height: height }, style]}>
-      <Text style={styles.text}>{text}</Text>
+    <View
+      className="rounded-md border border-[#ffa500] p-1"
+      style={{ width, height }}
+    >
+      <Text className="text-center text-xs text-white">{text}</Text>
     </View>
   );
 }

@@ -1,38 +1,10 @@
-import { ComponentProps, ReactNode } from "react";
-import {
-  StyleProp,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  ViewStyle,
-} from "react-native";
-
-const styles = StyleSheet.create({
-  button: {
-    borderWidth: 1,
-    borderColor: "white",
-    borderRadius: 5,
-    backgroundColor: "#000000",
-
-    justifyContent: "center",
-    alignItems: "center",
-
-    padding: 5,
-  },
-  text: {
-    color: "white",
-    fontFamily: "ChairdrobeRoundedBold",
-    textAlign: "center",
-    fontSize: 22,
-  },
-});
-
-type Style = ComponentProps<typeof TouchableOpacity>["style"];
+import { ReactNode } from "react";
+import { Text, TouchableOpacity } from "react-native";
+import clsx from "clsx";
 
 export type ButtonProps = {
   width: number;
   height: number;
-  style?: Style;
   className?: string;
   onPress: () => void;
   children: ReactNode;
@@ -41,18 +13,22 @@ export type ButtonProps = {
 export default function Button({
   width,
   height,
-  style,
   className,
   onPress,
   children,
 }: ButtonProps) {
   return (
     <TouchableOpacity
-      className={className}
-      style={[styles.button, { width: width, height: height }, style]}
+      className={clsx(
+        className,
+        "flex items-center justify-center rounded-md border border-white bg-black p-1",
+      )}
+      style={{ width, height }}
       onPress={onPress}
     >
-      <Text style={styles.text}>{children}</Text>
+      <Text className="font-chairdrobe-rounded-bold text-center text-2xl text-white">
+        {children}
+      </Text>
     </TouchableOpacity>
   );
 }

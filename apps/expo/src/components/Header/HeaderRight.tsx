@@ -1,31 +1,39 @@
-import { useEffect, useState } from "react";
+import { type ComponentProps } from "react";
 import { Linking, View } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import IconFontisto from "react-native-vector-icons/Fontisto";
 
-export default function HeaderRight() {
-  const [statusColor, setStatusColor] = useState("green");
+type Color = ComponentProps<typeof Icon>["color"];
 
+type HeaderRightProps = {
+  color: Color;
+  contactLink: string;
+  statusLink: string;
+};
+
+export default function HeaderRight({
+  color,
+  contactLink = "https://m.me/hungarianrockstarclub",
+  statusLink = "https://huroc.com/status",
+}: HeaderRightProps) {
   return (
-    <View style={{ display: "flex", flexDirection: "row", marginRight: 15 }}>
+    <View className="mr-4 flex flex-row">
       <IconFontisto
         name="messenger"
         size={25}
         color="#000"
-        style={{
-          marginRight: 10,
-        }}
+        style={{ marginRight: 4 }} // classNames dont work
         onPress={() => {
-          Linking.openURL("https://m.me/hungarianrockstarclub");
+          Linking.openURL(contactLink);
         }}
       />
 
       <Icon
         name="wifi"
         size={25}
-        color={statusColor}
+        color={color}
         onPress={() => {
-          Linking.openURL("https://huroc.com/status");
+          Linking.openURL(statusLink);
         }}
       />
     </View>

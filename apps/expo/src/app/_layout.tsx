@@ -33,6 +33,10 @@ const hiddenRoutes = [
   "_index",
 ];
 
+const NEWS_LINK = "https://huroc.com/hrc-news";
+const CONTACT_LINK = "https://m.me/hungarianrockstarclub";
+const STATUS_LINK = "https://huroc.com/status";
+
 const RootLayout = () => {
   const router = useRouter();
   const [fontsLoaded] = useFonts(fonts);
@@ -65,8 +69,14 @@ const RootLayout = () => {
             screenOptions={{
               headerShown: true,
               headerTitleAlign: "left",
-              headerTitle: () => <HeaderTitle />,
-              headerRight: () => <HeaderRight />,
+              headerTitle: () => <HeaderTitle newsLink={NEWS_LINK} />,
+              headerRight: () => (
+                <HeaderRight
+                  color="green"
+                  contactLink={CONTACT_LINK}
+                  statusLink={STATUS_LINK}
+                />
+              ),
 
               tabBarShowLabel: false,
               tabBarActiveTintColor: "#ffa500",

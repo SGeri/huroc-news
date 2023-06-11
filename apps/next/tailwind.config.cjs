@@ -9,7 +9,6 @@ const config = {
       "chairdrobe-rounded": ["var(--chairdrobe-rounded-font)"],
       "noto-sans": ["var(--noto-sans-font)"],
     },
-    extend: {},
   },
 };
 
