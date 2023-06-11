@@ -1,54 +1,17 @@
-import type {
-  GetServerSideProps,
-  GetServerSidePropsContext,
-  NextPage,
-} from "next";
+import type { GetServerSidePropsContext } from "next";
 import { buildClerkProps, getAuth } from "@clerk/nextjs/server";
-import superjson from "superjson";
-import { userService } from "@packages/api";
-import { User, type Role } from "@packages/db";
 
-export type RequireAuthReturnedProps = { _user: string };
-export type ProtectedPage = NextPage<{ user: User }>;
-
-/**
- * @param {Role} requiredAuthRole the required auth role for the user to be authorized for the page
- * @param {GetServerSideProps} getServerSideProps an optional callback to extend the getServerSideProps function (called after the auth check)
- * requiredAuthRole can be a single Role or an array of Roles
- * @example const getServerSideProps = requireAuth(Role.ADMIN);
- * @example const getServerSideProps = requireAuth([Role.EMPLOYEE, Role.ADMIN]);
- * @optional callback can be passed
- * @example const getServerSideProps = requireAuth(Role.ADMIN, async (ctx) => { ... });
- */
-export const requireAuth = (
-  requiredAuthRole: Role | Role[], // todo single Role or array of Roles
-  getServerSideProps?: GetServerSideProps,
-) => {
+export const requireAuth = () => {
   return async (ctx: GetServerSidePropsContext) => {
-    const { userId } = getAuth(ctx.req);
+    const user = getAuth(ctx.req);
 
-    if (!userId) return redirect(ctx);
-
-    const user = await userService.getUserByClerkId(userId);
-
-    if (!user) return redirect(ctx);
-
-    const eligibleToVisit = Array.isArray(requiredAuthRole)
-      ? requiredAuthRole.includes(user.role)
-      : user.role === requiredAuthRole;
-
-    if (!eligibleToVisit) return redirect(ctx);
-
-    const additionalProps = getServerSideProps
-      ? await getServerSideProps(ctx)
-      : {};
+    if (!user.userId) return redirect(ctx);
 
     return {
-      ...additionalProps,
       props: {
-        _user: superjson.stringify(user),
+        user,
         ...buildClerkProps(ctx.req),
-      } as RequireAuthReturnedProps,
+      },
     };
   };
 };

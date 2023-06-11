@@ -1,10 +1,9 @@
 import { TRPCError } from "@trpc/server";
 import { Ratelimit } from "@upstash/ratelimit";
-import { redis, type Role } from "@packages/db";
-import { userService } from "./services/user.service";
+import { redis } from "@packages/db";
 import { middleware, procedure, publicProcedure } from "./trpc";
 
-export const createProtectedProcedure = (permissionLevel: Role | Role[]) => {
+export const createProtectedProcedure = () => {
   const procedureMiddleware = middleware(async ({ next, ctx }) => {
     if (!ctx.auth.userId)
       throw new TRPCError({
@@ -12,30 +11,10 @@ export const createProtectedProcedure = (permissionLevel: Role | Role[]) => {
         message: "Not authenticated",
       });
 
-    const user = await userService.getUserByClerkId(ctx.auth.userId);
-
-    if (!user)
-      throw new TRPCError({
-        code: "NOT_FOUND",
-        message: "User not found",
-      });
-
-    const singleRoleCondition =
-      !Array.isArray(permissionLevel) && user.role === permissionLevel;
-
-    const multipleRoleCondition =
-      Array.isArray(permissionLevel) && permissionLevel.includes(user.role);
-
-    if (!singleRoleCondition && !multipleRoleCondition)
-      throw new TRPCError({
-        code: "FORBIDDEN",
-        message: "Not authorized",
-      });
-
     return next({
       ctx: {
         ...ctx,
-        user,
+        user: ctx.auth.user,
       },
     });
   });
@@ -50,7 +29,7 @@ export const createRatelimitedProcedure = (
   window: Window = "5 s",
 ) => {
   const ratelimit = new Ratelimit({
-    redis: redis,
+    redis,
     limiter: Ratelimit.fixedWindow(limit, window),
   });
 

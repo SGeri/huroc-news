@@ -1,7 +1,6 @@
 import { initTRPC } from "@trpc/server";
 import superjson from "superjson";
 import { ZodError } from "zod";
-import { Role } from "@packages/db";
 import { type Context } from "./context";
 import {
   createProtectedProcedure,
@@ -28,7 +27,6 @@ export const procedure = t.procedure;
 export const middleware = t.middleware;
 
 export const publicProcedure = createRatelimitedProcedure(10, "5 s");
-export const userProcedure = createProtectedProcedure(Role.USER);
-export const adminProcedure = createProtectedProcedure(Role.ADMIN);
+export const protectedProcedure = createProtectedProcedure();
 
 export { createProtectedProcedure } from "./procedures";

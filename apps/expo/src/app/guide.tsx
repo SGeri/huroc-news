@@ -125,7 +125,7 @@ function Category({ icon, text, info, onPress }: CategoryProps) {
 
         <Text style={styles.categoryText}>{text}</Text>
 
-        {info && <Infobox style={{ marginLeft: 15 }} text={info} />}
+        {info && <Infobox className="ml-4" text={info} />}
 
         <Icon
           style={styles.categoryArrow}

@@ -1,4 +1,5 @@
 import { useRef, useState } from "react";
+import { NextPage } from "next";
 import { SignOutButton } from "@clerk/nextjs";
 import {
   Button,
@@ -9,14 +10,12 @@ import {
   Text,
   Title,
 } from "@mantine/core";
-import { Role } from "@packages/db";
 import { api } from "~/utils/api";
-import { ProtectedPage, requireAuth } from "~/utils/auth";
-import { withParsedUser } from "~/utils/guard";
+import { requireAuth } from "~/utils/auth";
 import Card from "~/components/Card";
 import Form, { type FormValues } from "~/components/Form";
 
-const Home: ProtectedPage = ({ user }) => {
+const Home: NextPage = () => {
   const ref = useRef<HTMLDivElement>(null);
   const [take, setTake] = useState(5);
   const {
@@ -123,6 +122,6 @@ const Home: ProtectedPage = ({ user }) => {
   );
 };
 
-export const getServerSideProps = requireAuth(Role.ADMIN);
+export const getServerSideProps = requireAuth();
 
-export default withParsedUser(Home);
+export default Home;

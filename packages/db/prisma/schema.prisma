@@ -9,14 +9,10 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
+model Device {
   id                    String     @id @default(uuid())
-  clerk_id              String     @unique
-  email                 String     @unique
-  role                  Role       @default(USER)
+  device_token          String     @unique
   enabled_notifications Category[] @default([])
-  notification_tokens   String[]   @default([])
-  newsletter            Boolean    @default(false)
   createdAt             DateTime   @default(now())
   updatedAt             DateTime   @updatedAt
 }
@@ -41,9 +37,4 @@ enum Category {
   ROCKSTAR_GAMES
   TAKE_TWO
   HUROC
-}
-
-enum Role {
-  USER
-  ADMIN
 }

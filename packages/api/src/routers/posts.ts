@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { adminProcedure, createRouter, publicProcedure } from "../trpc";
+import { createRouter, protectedProcedure, publicProcedure } from "../trpc";
 
 // use typescipt magic to get the categories from Category enum
 const categories = [
@@ -42,7 +42,7 @@ export const postsRouter = createRouter({
       return { total, posts, pinned };
     }),
 
-  createPost: adminProcedure
+  createPost: protectedProcedure
     .input(
       z.object({
         title: z.string().min(1),
