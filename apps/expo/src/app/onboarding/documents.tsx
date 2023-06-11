@@ -7,11 +7,12 @@ import {
   Text,
   View,
 } from "react-native";
-import { useRouter } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import Button from "../../components/Button";
 import Checkbox from "../../components/Checkbox";
 import ProgressBar from "../../components/ProgressBar";
 import Welcome6Image from "../../images/welcome6.png";
+import { keepParams } from "../../lib/params";
 
 const styles = StyleSheet.create({
   container: {
@@ -48,8 +49,9 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function Page() {
+export default keepParams(function Documents() {
   const router = useRouter();
+  const params = useLocalSearchParams();
 
   const [TOU, setTOU] = useState(false);
   const [TOS, setTOS] = useState(false);
@@ -57,7 +59,10 @@ export default function Page() {
 
   const next = () => {
     if (TOU && TOS && TOP) {
-      router.push("/onboarding/ready");
+      router.push({
+        pathname: "/onboarding/ready",
+        params,
+      });
     } else {
       Alert.alert(
         "Fontos dokumentumok",
@@ -114,7 +119,7 @@ export default function Page() {
       </SafeAreaView>
     </>
   );
-}
+});
 
 function Separator() {
   return (

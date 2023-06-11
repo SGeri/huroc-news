@@ -1,9 +1,12 @@
 import { Image, SafeAreaView, StyleSheet, Text, View } from "react-native";
-import { useRouter } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
+import { getPushNotificationToken } from "~/lib/notifications";
 import Button from "../../components/Button";
 import ProgressBar from "../../components/ProgressBar";
 import Welcome7Image from "../../images/welcome7.png";
-import { setItem } from "../../utils/storage";
+import { keepParams } from "../../lib/params";
+import { setItem } from "../../lib/storage";
+import { api } from "../../utils/api";
 
 const styles = StyleSheet.create({
   container: {
@@ -40,14 +43,30 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function Ready() {
-  const router = useRouter();
+type Params = {
+  notifications: string[];
+};
 
-  const exitWelcome = async () => {
+export default keepParams<Params>(function Ready({ params }) {
+  const router = useRouter();
+  const { mutateAsync: registerDevice, isLoading: loading } =
+    api.devices.registerDevice.useMutation();
+
+  const finishOnboarding = async () => {
     try {
+      const token = await getPushNotificationToken();
+
+      if (!token) throw new Error("Nem sikerült lekérni a push token-t!");
+
+      // fix type "piping"
+      await registerDevice({
+        token,
+        selectedNotifications: params.notifications as any,
+      });
+
       await setItem("onboarding-done", true);
     } catch (e) {
-      alert("Nem sikerült elmenteni az adatokat a háttértárba!");
+      alert("Az onboarding nem sikerült! " + String(e));
     }
 
     router.replace("/");
@@ -64,7 +83,7 @@ export default function Ready() {
             Elkészültél! Mostantól te is használhatod a HRC News alkalmazást.
           </Text>
 
-          <Button width={100} height={40} onPress={exitWelcome}>
+          <Button width={100} height={40} onPress={finishOnboarding}>
             Indítás
           </Button>
         </View>
@@ -73,4 +92,4 @@ export default function Ready() {
       </SafeAreaView>
     </>
   );
-}
+});

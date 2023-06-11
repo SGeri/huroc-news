@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { SafeAreaView, StyleSheet, Text, View } from "react-native";
-import { useRouter } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import Button from "../../components/Button";
 import Checkbox from "../../components/Checkbox";
 import ProgressBar from "../../components/ProgressBar";
@@ -43,18 +43,20 @@ const styles = StyleSheet.create({
   },
 });
 
+// todo rework this page
+
 export default function Page() {
   const router = useRouter();
 
   const [notifications, setNotifications] = useState([
-    "status",
-    "gtao",
-    "rdo",
-    "gtavi",
-    "gtat",
-    "rockstar",
-    "taketwo",
-    "huroc",
+    "SERVICE_STATUS",
+    "GTA_ONLINE",
+    "GTA_VI",
+    "GTA_TRIOLOGY",
+    "RED_DEAD_ONLINE",
+    "ROCKSTAR_GAMES",
+    "TAKE_TWO",
+    "HUROC",
   ]);
 
   const toggleNotification = (notification: string) => {
@@ -82,64 +84,64 @@ export default function Page() {
 
         <Checkbox
           text="Service Status értesítések"
-          checked={isNotificationChecked("status")}
-          onPress={() => toggleNotification("status")}
+          checked={isNotificationChecked("SERVICE_STATUS")}
+          onPress={() => toggleNotification("SERVICE_STATUS")}
         />
 
         <Separator />
 
         <Checkbox
           text="GTA Online értesítések"
-          checked={isNotificationChecked("gtao")}
-          onPress={() => toggleNotification("gtao")}
+          checked={isNotificationChecked("GTA_ONLINE")}
+          onPress={() => toggleNotification("GTA_ONLINE")}
         />
 
         <Separator />
 
         <Checkbox
           text="Red Dead Online értesítések"
-          checked={isNotificationChecked("rdo")}
-          onPress={() => toggleNotification("rdo")}
+          checked={isNotificationChecked("RED_DEAD_ONLINE")}
+          onPress={() => toggleNotification("RED_DEAD_ONLINE")}
         />
 
         <Separator />
 
         <Checkbox
           text="Grand Theft Auto VI értesítések"
-          checked={isNotificationChecked("gtavi")}
-          onPress={() => toggleNotification("gtavi")}
+          checked={isNotificationChecked("GTA_VI")}
+          onPress={() => toggleNotification("GTA_VI")}
         />
 
         <Separator />
 
         <Checkbox
           text="GTA: The Triology értesítések"
-          checked={isNotificationChecked("gtat")}
-          onPress={() => toggleNotification("gtat")}
+          checked={isNotificationChecked("GTA_TRIOLOGY")}
+          onPress={() => toggleNotification("GTA_TRIOLOGY")}
         />
 
         <Separator />
 
         <Checkbox
           text="Rockstar Games értesítések"
-          checked={isNotificationChecked("rockstar")}
-          onPress={() => toggleNotification("rockstar")}
+          checked={isNotificationChecked("ROCKSTAR_GAMES")}
+          onPress={() => toggleNotification("ROCKSTAR_GAMES")}
         />
 
         <Separator />
 
         <Checkbox
           text="Take-Two Interactive értesítések"
-          checked={isNotificationChecked("taketwo")}
-          onPress={() => toggleNotification("taketwo")}
+          checked={isNotificationChecked("TAKE_TWO")}
+          onPress={() => toggleNotification("TAKE_TWO")}
         />
 
         <Separator />
 
         <Checkbox
           text="Hungarian Rockstar Club értesítések"
-          checked={isNotificationChecked("huroc")}
-          onPress={() => toggleNotification("huroc")}
+          checked={isNotificationChecked("HUROC")}
+          onPress={() => toggleNotification("HUROC")}
         />
 
         <Separator />
@@ -149,7 +151,12 @@ export default function Page() {
         <Button
           width={100}
           height={40}
-          onPress={() => router.push("/onboarding/service-status")}
+          onPress={() =>
+            router.push({
+              pathname: "/onboarding/service-status",
+              params: { notifications },
+            })
+          }
         >
           Tovább
         </Button>

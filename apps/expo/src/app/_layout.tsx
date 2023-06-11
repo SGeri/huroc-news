@@ -9,9 +9,9 @@ import { StatusBar } from "expo-status-bar";
 import days from "dayjs";
 import HeaderRight from "../components/Header/HeaderRight";
 import HeaderTitle from "../components/Header/HeaderTitle";
+import { getItem } from "../lib/storage";
 import { TRPCProvider } from "../utils/api";
 import fonts from "../utils/fonts";
-import { getItem } from "../utils/storage";
 
 // Localization
 days.locale("hu");
@@ -26,9 +26,6 @@ const hiddenRoutes = [
   "onboarding/service-status",
   "onboarding/welcome",
   "post/[id]",
-  "prot",
-  "sign-in",
-  "_index",
 ];
 
 const NEWS_LINK = "https://huroc.com/hrc-news";

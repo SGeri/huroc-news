@@ -1,6 +1,5 @@
 import React, { useState, type ReactNode } from "react";
 import Constants from "expo-constants";
-import { useAuth } from "@clerk/clerk-expo";
 import {
   QueryClient,
   QueryClientProvider,
@@ -47,8 +46,6 @@ const queryClientConfig: DefaultOptions = {
 };
 
 export const TRPCProvider = ({ children }: { children: ReactNode }) => {
-  const { getToken } = useAuth();
-
   const [queryClient] = useState(
     () => new QueryClient({ defaultOptions: queryClientConfig }),
   );
@@ -58,14 +55,6 @@ export const TRPCProvider = ({ children }: { children: ReactNode }) => {
       transformer: superjson,
       links: [
         httpBatchLink({
-          async headers() {
-            const authToken = await getToken();
-
-            return {
-              Authorization: authToken ?? undefined,
-            };
-          },
-
           url: `${getBaseUrl()}/api/trpc`,
         }),
       ],

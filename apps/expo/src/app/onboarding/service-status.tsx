@@ -1,8 +1,8 @@
 import { Image, SafeAreaView, StyleSheet, Text, View } from "react-native";
-import { useRouter } from "expo-router";
 import Button from "../../components/Button";
 import ProgressBar from "../../components/ProgressBar";
 import Welcome5Image from "../../images/welcome5.png";
+import { keepParams } from "../../lib/params";
 
 const styles = StyleSheet.create({
   container: {
@@ -39,9 +39,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function ServiceStatus() {
-  const router = useRouter();
-
+export default keepParams(function ServiceStatus({ navigate }) {
   return (
     <>
       <ProgressBar progress={(100 / 7) * 5} />
@@ -58,7 +56,7 @@ export default function ServiceStatus() {
           <Button
             width={100}
             height={40}
-            onPress={() => router.push("/onboarding/documents")}
+            onPress={() => navigate("/onboarding/documents")}
           >
             Tovább
           </Button>
@@ -68,4 +66,4 @@ export default function ServiceStatus() {
       </SafeAreaView>
     </>
   );
-}
+});
