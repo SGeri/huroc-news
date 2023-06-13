@@ -6,6 +6,7 @@
     "build": "next build",
     "clean": "git clean -xdf .next .turbo node_modules",
     "dev": "next dev",
+    "dev:device": "npm run dev",
     "lint": "next lint",
     "start": "next start",
     "type-check": "tsc --noEmit"

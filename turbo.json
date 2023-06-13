@@ -14,6 +14,10 @@
       "persistent": true,
       "cache": false
     },
+    "dev:device": {
+      "persistent": true,
+      "cache": false
+    },
     "dev:web": {
       "persistent": true,
       "cache": false

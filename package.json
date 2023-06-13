@@ -18,7 +18,7 @@
     "db:generate": "dotenv -e .env -- turbo db:generate",
     "db:push": "dotenv -e .env -- turbo db:push db:generate",
     "dev": "dotenv -e .env -- turbo dev --parallel",
-    "dev:mobile": "dotenv -e .env -- npm run dev --workspace apps/expo",
+    "dev:device": "dotenv -e .env -- turbo dev:device --parallel",
     "dev:web": "dotenv -e .env -- npm run dev --workspace apps/next",
     "format": "prettier --write \"**/*.{js,cjs,mjs,ts,tsx,md,json}\" --ignore-path .gitignore",
     "lint": "dotenv -e .env -- turbo lint && manypkg check",
@@ -28,7 +28,10 @@
     "tf:destroy": "cd terraform && dotenv -e ../.env -- terraform destroy",
     "tf:init": "cd terraform && dotenv -e ../.env -- terraform init",
     "tf:plan": "cd terraform && dotenv -e ../.env -- terraform plan",
-    "type-check": "dotenv -e .env -- turbo type-check"
+    "type-check": "dotenv -e .env -- turbo type-check",
+    "tunnel": "cd ngrok && ngrok start --config=config.yaml --all",
+    "kill-port": "npx kill-port 19000 19001 3000 3001 5555 5556",
+    "dev:tunnel": "npm run kill-port && source ./ngrok/tunnel.sh && npm run dev:device"
   },
   "dependencies": {
     "@ianvs/prettier-plugin-sort-imports": "^3.7.1",

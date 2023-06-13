@@ -1,0 +1,25 @@
+# First, run ngrok config add-authtoken <token>
+# Start command: ngrok start --config=ngrok.yaml --all
+# npx kill-port 19000 19001 3000 3001 5555 5556 && source ./ngrok/tunnel.sh && npm run dev
+
+version: "2"
+
+# SGeri: 26qm3cPRybnDwIeFI1e0xjBW8Vn_31quJdVtTWt1zEFXCYy8U
+# Sgerigamer: 2R7qah8HA93navfL8gEAxkNParP_4uYbYQ1xMsUT7tAzRoRAE
+
+authtoken: 26qm3cPRybnDwIeFI1e0xjBW8Vn_31quJdVtTWt1zEFXCYy8U
+
+tunnels:
+  # expo:
+  #   addr: 19000
+  #   proto: http
+  #   #schemes: [http, https]
+  #   #host_header: localhost:19000
+  #   bind_tls: false
+
+  next:
+    addr: 3000
+    proto: http
+    #schemes: [http, https]
+    #host_header: localhost:3000
+    #bind_tls: false

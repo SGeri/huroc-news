@@ -24,6 +24,11 @@ const getBaseUrl = () => {
    * you'll have to manually set it. NOTE: Port 3000 should work for most but confirm
    * you don't have anything else running on it, or you'd have to change it.
    */
+
+  // If you're using the Expo Go app, you can use the tunnel URL.
+  const TUNNEL_SERVER_URL = Constants?.expoConfig?.extra?.SERVER_URL as any;
+  if (TUNNEL_SERVER_URL) return TUNNEL_SERVER_URL;
+
   const localhost = Constants.manifest?.debuggerHost?.split(":")[0];
 
   if (!localhost) {
