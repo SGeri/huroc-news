@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { Category } from "@packages/db";
+import { Category, Prisma } from "@packages/db";
 import { createRouter, publicProcedure } from "../trpc";
 
 // make a common place for this
@@ -23,14 +23,18 @@ export const devicesRouter = createRouter({
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      console.log("input", input);
-
       const { token, selectedNotifications } = input;
-      const { prisma } = ctx;
 
-      const device = await prisma.device.create({
-        data: {
+      const device = await ctx.prisma.device.upsert({
+        where: {
           device_token: token,
+        },
+
+        create: {
+          device_token: token,
+          enabled_notifications: selectedNotifications,
+        },
+        update: {
           enabled_notifications: selectedNotifications,
         },
       });

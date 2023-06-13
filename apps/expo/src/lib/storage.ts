@@ -1,6 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 type Item = {
+  "onboarding-notifications": string;
   "onboarding-done": boolean;
   "user-id": string;
 };

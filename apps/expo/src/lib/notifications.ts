@@ -1,4 +1,5 @@
 import { Platform } from "react-native";
+import Toast from "react-native-toast-message";
 import * as Device from "expo-device";
 import * as Notifications from "expo-notifications";
 
@@ -17,15 +18,21 @@ export async function getPushNotificationToken() {
     }
 
     if (finalStatus !== "granted") {
-      alert("Failed to get push token for push notification!");
-      return;
+      return Toast.show({
+        type: "error",
+        text1: "Push értesítések",
+        text2:
+          "Az értesítések fogadásához engedélyezd a push értesítéseket a beállításokban!",
+      });
     }
 
     token = (await Notifications.getExpoPushTokenAsync()).data;
-
-    console.log("Device Token", token);
   } else {
-    alert("Must use physical device for Push Notifications");
+    Toast.show({
+      type: "error",
+      text1: "Push értesítések",
+      text2: "Az értesítések fogadásához fizikai eszközt kell használnod!",
+    });
   }
 
   if (Platform.OS === "android") {

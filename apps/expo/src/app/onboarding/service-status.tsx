@@ -1,69 +1,34 @@
-import { Image, SafeAreaView, StyleSheet, Text, View } from "react-native";
+import { Image, Text, View } from "react-native";
 import Button from "../../components/Button";
 import ProgressBar from "../../components/ProgressBar";
 import Welcome5Image from "../../images/welcome5.png";
-import { keepParams } from "../../lib/params";
+import useOnboarding from "../../lib/useOnboarding";
 
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: "#121212",
-    width: "100%",
-    height: "100%",
-    flex: 1,
-    justifyContent: "space-between",
-  },
-  textContainer: {
-    width: "100%",
-    height: "50%",
-    justifyContent: "center",
-    alignItems: "center",
-    padding: 30,
-  },
-  title: {
-    textAlign: "center",
-    fontFamily: "ChairdrobeRoundedBold",
-    fontSize: 32,
-    color: "white",
-    marginBottom: 10,
-  },
-  description: {
-    textAlign: "center",
-    fontFamily: "NotoSansRegular",
-    fontSize: 16,
-    color: "white",
-    marginBottom: 50,
-  },
-  image: {
-    width: "100%",
-    height: "50%",
-  },
-});
+export default function ServiceStatus() {
+  const { progress, next } = useOnboarding(4);
 
-export default keepParams(function ServiceStatus({ navigate }) {
   return (
     <>
-      <ProgressBar progress={(100 / 7) * 5} />
+      <ProgressBar progress={progress} />
 
-      <SafeAreaView style={styles.container}>
-        <View style={styles.textContainer}>
-          <Text style={styles.title}>Service Status</Text>
-          <Text style={styles.description}>
+      <View className="h-full w-full flex-1 bg-[#121212]">
+        <View className="w-full items-center justify-between p-8">
+          <Text className="font-chairdrobe-rounded-bold mb-3 text-center text-3xl text-white">
+            Service Status
+          </Text>
+          <Text className="font-noto-sans-regular mb-12 text-center text-base text-white">
             Ha szeretnéd tudni a GTA Online, Red Dead Online, Rockstar Games
             Launcher vagy Social Club szervereinek állapotát, csak keresd a Wifi
             ikont az alkalmazásban.
           </Text>
 
-          <Button
-            width={100}
-            height={40}
-            onPress={() => navigate("/onboarding/documents")}
-          >
+          <Button width={100} height={40} onPress={next}>
             Tovább
           </Button>
         </View>
 
-        <Image style={styles.image} source={Welcome5Image} />
-      </SafeAreaView>
+        <Image className="h-[60%] w-full" source={Welcome5Image} />
+      </View>
     </>
   );
-});
+}

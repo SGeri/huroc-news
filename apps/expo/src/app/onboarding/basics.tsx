@@ -1,18 +1,18 @@
 import { Image, Text, View } from "react-native";
-import { useRouter } from "expo-router";
 import Button from "../../components/Button";
 import ProgressBar from "../../components/ProgressBar";
 import Welcome2Image from "../../images/welcome2.png";
+import useOnboarding from "../../lib/useOnboarding";
 
 export default function Basics() {
-  const router = useRouter();
+  const { progress, next } = useOnboarding(1);
 
   return (
     <>
-      <ProgressBar progress={(100 / 7) * 2} />
+      <ProgressBar progress={progress} />
 
-      <View className="h-full w-full flex-1 justify-between bg-[#121212]">
-        <View className="h-[50%] w-full items-center justify-center p-8">
+      <View className="h-full w-full flex-1 bg-[#121212]">
+        <View className="w-full items-center justify-center p-8">
           <Text className="font-chairdrobe-rounded-bold mb-3 text-center text-3xl text-white">
             Alapok
           </Text>
@@ -22,16 +22,15 @@ export default function Basics() {
             állapotát is.
           </Text>
 
-          <Button
-            width={100}
-            height={40}
-            onPress={() => router.push("/onboarding/notifications")}
-          >
+          <Button width={100} height={40} onPress={next}>
             Tovább
           </Button>
         </View>
 
-        <Image className="h-[50%] w-full" source={Welcome2Image} />
+        <Image
+          className="absolute bottom-0 left-0 aspect-square h-[50%] min-h-[200] w-full"
+          source={Welcome2Image}
+        />
       </View>
     </>
   );

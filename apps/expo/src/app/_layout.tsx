@@ -25,7 +25,6 @@ const hiddenRoutes = [
   "onboarding/ready",
   "onboarding/service-status",
   "onboarding/welcome",
-  "post/[id]",
 ];
 
 const NEWS_LINK = "https://huroc.com/hrc-news";
