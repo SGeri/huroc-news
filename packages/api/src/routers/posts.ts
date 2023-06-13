@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { notificationsService } from "../services/notifications.service";
 import { createRouter, protectedProcedure, publicProcedure } from "../trpc";
 
 // use typescipt magic to get the categories from Category enum
@@ -58,6 +59,14 @@ export const postsRouter = createRouter({
           category: input.category,
           image: input.image,
           link: input.link,
+        },
+      });
+
+      await notificationsService.sendPushNotificationToCategory({
+        categories: input.category,
+        notification: {
+          title: "Új bejegyzés!",
+          body: input.title,
         },
       });
 

@@ -13,7 +13,7 @@ const config = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "media-rockstargames-com.akamaized.net",
+        hostname: "**",
       },
     ],
   },

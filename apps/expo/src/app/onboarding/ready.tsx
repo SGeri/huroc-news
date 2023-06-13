@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
 });
 
 type Params = {
-  notifications: string[];
+  notifications: string;
 };
 
 export default keepParams<Params>(function Ready({ params }) {
@@ -56,12 +56,13 @@ export default keepParams<Params>(function Ready({ params }) {
     try {
       const token = await getPushNotificationToken();
 
-      if (!token) throw new Error("Nem sikerült lekérni a push token-t!");
+      if (!token || !params.notifications)
+        throw new Error("Nem sikerült lekérni a push token-t!");
 
       // fix type "piping"
       await registerDevice({
         token,
-        selectedNotifications: params.notifications as any,
+        selectedNotifications: params.notifications.split(",") as any,
       });
 
       await setItem("onboarding-done", true);
