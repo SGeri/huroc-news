@@ -46,10 +46,12 @@ export default function Basics() {
     <>
       <ProgressBar progress={(100 / 7) * 2} />
 
-      <SafeAreaView style={styles.container}>
-        <View style={styles.textContainer}>
-          <Text style={styles.title}>Alapok</Text>
-          <Text style={styles.description}>
+      <View className="h-full w-full flex-1 justify-between bg-[#121212]">
+        <View className="h-[50%] w-full items-center justify-center p-8">
+          <Text className="font-chairdrobe-rounded-bold mb-3 text-center text-3xl text-white">
+            Alapok
+          </Text>
+          <Text className="font-noto-sans-regular mb-12 text-center text-base text-white">
             A HRC News segítségével elsőként értesülhetsz minden GTA, RDR és
             Rockstar Games hírről, és gyorsan ellenőrizheted a szerverek
             állapotát is.
@@ -64,8 +66,8 @@ export default function Basics() {
           </Button>
         </View>
 
-        <Image style={styles.image} source={Welcome2Image} />
-      </SafeAreaView>
+        <Image className="h-[50%] w-full" source={Welcome2Image} />
+      </View>
     </>
   );
 }
