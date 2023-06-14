@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import dayjs from "dayjs";
-import { RouterOutputs, api } from "~/utils/api";
+import { RouterOutputs, api } from "../../utils/api";
 
 const statusColors = {
   UP: "#00FF00",

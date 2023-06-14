@@ -123,8 +123,10 @@ export default function useOnboarding(pageIndex: number) {
         text1: "Onboarding",
         text2: "Az onboarding nem sikerült! " + String(e),
       });
+      console.log("error", String(e));
     }
 
+    // todo: clear router history
     router.replace("/");
   };
 

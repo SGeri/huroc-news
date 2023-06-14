@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import dayjs from "dayjs";
 import { Category } from "@packages/db";
-import { api } from "../utils/api";
+import { api } from "../../utils/api";
 
 export default function Page() {
   const [take, setTake] = useState(5);
