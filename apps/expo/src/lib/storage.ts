@@ -10,6 +10,7 @@ async function getItem(key: keyof Item) {
   try {
     return await AsyncStorage.getItem(key);
   } catch (e) {
+    console.log("catch", e);
     throw new Error("Nem sikerült elérni az adatokat a háttértárból!");
   }
 }

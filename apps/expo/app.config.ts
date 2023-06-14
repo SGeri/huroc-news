@@ -2,16 +2,16 @@ import type { ExpoConfig } from "@expo/config";
 
 const defineConfig = (): ExpoConfig => ({
   name: "HRC News",
-  slug: "expo",
-  scheme: "expo",
+  slug: "hrc-news",
+  scheme: "hrcnews",
   version: "1.0.0",
   orientation: "portrait",
-  icon: "./assets/icon.png",
+  icon: "./assets/logo.png",
   userInterfaceStyle: "light",
   splash: {
-    image: "./assets/icon.png",
+    image: "./assets/splash.png",
     resizeMode: "contain",
-    backgroundColor: "#1F104A",
+    backgroundColor: "white",
   },
   owner: "hurocdev",
   updates: {
@@ -25,7 +25,7 @@ const defineConfig = (): ExpoConfig => ({
   android: {
     package: "news.huroc.com",
     adaptiveIcon: {
-      foregroundImage: "./assets/icon.png",
+      foregroundImage: "./assets/logo.png",
       backgroundColor: "#1F104A",
     },
   },
@@ -33,13 +33,6 @@ const defineConfig = (): ExpoConfig => ({
     eas: {
       projectId: "de3da78e-ba2d-49c4-98fc-4223b40005dc",
     },
-
-    // Environment variables for the app
-    // Usage: Constants.expoConfig.extra.<ENVIRONMENT_VARIABLE>
-    clerkPublishableKey: process.env
-      .NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY as string,
-
-    production: {},
   },
   plugins: ["./expo-plugins/with-modify-gradle.js"],
 });

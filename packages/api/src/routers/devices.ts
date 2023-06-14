@@ -1,5 +1,4 @@
 import { z } from "zod";
-import { Category, Prisma } from "@packages/db";
 import { createRouter, publicProcedure } from "../trpc";
 
 // make a common place for this

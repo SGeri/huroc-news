@@ -1,15 +1,15 @@
 import React, { useCallback, useEffect } from "react";
-import { View } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import Toast from "react-native-toast-message";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { useFonts } from "expo-font";
-import { Tabs, useRouter } from "expo-router";
+import { Tabs, useNavigation, useRouter } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
 import days from "dayjs";
 import HeaderRight from "../components/Header/HeaderRight";
 import HeaderTitle from "../components/Header/HeaderTitle";
-import { getItem } from "../lib/storage";
+import { getItem, removeItem } from "../lib/storage";
 import { TRPCProvider } from "../utils/api";
 import fonts from "../utils/fonts";
 
@@ -33,16 +33,29 @@ const STATUS_LINK = "https://huroc.com/status";
 
 const RootLayout = () => {
   const router = useRouter();
+  const navigation = useNavigation();
   const [fontsLoaded] = useFonts(fonts);
 
   const onLayoutRootView = useCallback(async () => {
-    if (fontsLoaded) await SplashScreen.hideAsync();
+    if (fontsLoaded) await SplashScreen.hideAsync().catch(() => {});
   }, [fontsLoaded]);
 
   const checkOnboarding = async () => {
-    const isBoarded = Boolean(await getItem("onboarding-done"));
+    await removeItem("onboarding-done");
 
-    if (!isBoarded) router.replace("/onboarding/welcome");
+    try {
+      const isBoarded = await getItem("onboarding-done");
+
+      console.log("isBoarded", isBoarded);
+
+      if (!isBoarded) return router.push("/onboarding/welcome");
+    } catch (error) {
+      Toast.show({
+        type: "error",
+        text1: "Hiba történt",
+        text2: String(error),
+      });
+    }
   };
 
   useEffect(() => {
@@ -55,10 +68,9 @@ const RootLayout = () => {
 
   return (
     <TRPCProvider>
-      <SafeAreaProvider>
-        <View className="hidden" onLayout={onLayoutRootView} />
-
+      <SafeAreaProvider onLayout={onLayoutRootView}>
         <Tabs
+          initialRouteName="/onboarding/welcome" // kibaszottul nem működik
           screenOptions={{
             headerShown: true,
             headerTitleAlign: "left",
