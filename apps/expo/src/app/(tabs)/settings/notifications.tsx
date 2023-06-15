@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ScrollView, Text, View } from "react-native";
+import { ActivityIndicator, ScrollView, Text, View } from "react-native";
 import Toast from "react-native-toast-message";
 import { api } from "~/utils/api";
 import Button from "~/components/Button";
@@ -19,6 +19,7 @@ export default function Notifications() {
         enabled: !!token,
       },
     );
+  const registerDevice = api.devices.registerDevice.useMutation();
 
   const [selectedNotifications, setSelectedNotifications] = useState(
     notifications?.length
@@ -54,7 +55,17 @@ export default function Notifications() {
   };
 
   const handleSubmit = () => {
-    console.log("");
+    if (!token)
+      return Toast.show({
+        type: "error",
+        text1: "Hiba",
+        text2: "Nem menthetők az értesítések (token nem található).",
+      });
+
+    registerDevice.mutateAsync({
+      token,
+      selectedNotifications,
+    });
   };
 
   useEffect(() => {
@@ -70,6 +81,10 @@ export default function Notifications() {
         <Text className="font-noto-sans-regular mb-2 text-white">
           Módosítsd értesítési beállításaidat az igényeidnek megfelelően.
         </Text>
+
+        {(loading || registerDevice.isLoading) && (
+          <ActivityIndicator size="large" color="#ffa500" />
+        )}
 
         <View className="mb-2">
           {notificationOptions.map((option) => (

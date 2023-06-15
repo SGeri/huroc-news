@@ -42,7 +42,7 @@ export default function Privacy() {
           <Category
             icon="info"
             text="Adatkezelési Tájékoztató"
-            onPress={() => router.push("/")}
+            onPress={() => router.push("https://huroc.com/privacy")}
           />
         </View>
 

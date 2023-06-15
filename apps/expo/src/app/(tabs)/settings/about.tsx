@@ -17,7 +17,7 @@ const documents = [
   {
     icon: "lock",
     text: "Adatkezelési Feltételek",
-    link: "https://suport.com",
+    link: "https://huroc.com/privacy",
   },
 ];
 
@@ -46,7 +46,7 @@ export default function About() {
           <Category
             icon="info"
             text="Tájékoztató"
-            onPress={() => router.push("/")}
+            onPress={() => router.push("https://huroc.com/notice")}
           />
         </View>
 
