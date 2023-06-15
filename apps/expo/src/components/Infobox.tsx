@@ -16,7 +16,7 @@ export default function Infobox({
 }: InfoboxProps) {
   return (
     <View
-      className={clsx("rounded-md border border-[#ffa500] p-1", className)}
+      className={clsx("m-2 rounded-md border border-[#ffa500] p-1", className)}
       style={{ width, height }}
     >
       <Text className="text-center text-xs text-white">{text}</Text>

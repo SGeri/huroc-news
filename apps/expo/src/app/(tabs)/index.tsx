@@ -14,7 +14,7 @@ import { Category } from "@packages/db";
 import { formatCategories } from "@packages/lib";
 import { api } from "../../utils/api";
 
-export default function Page() {
+export default function Home() {
   const [take, setTake] = useState(5);
   const {
     data,

@@ -3,8 +3,8 @@ import { Text, TouchableOpacity } from "react-native";
 import clsx from "clsx";
 
 export type ButtonProps = {
-  width: number;
-  height: number;
+  width: number | string;
+  height: number | string;
   className?: string;
   onPress: () => void;
   children: ReactNode;
