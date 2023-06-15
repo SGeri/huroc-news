@@ -1,6 +1,3 @@
-# [TODO] make a multi-staged build so that processes can be cached
-# Use the T3 builder + other best practices
-
 # Use the official Node.js image as the base image
 FROM node:18
 
@@ -28,6 +25,7 @@ ENV UPSTASH_REDIS_REST_TOKEN $UPSTASH_REDIS_REST_TOKEN
 # Disable telemetry
 ENV NEXT_TELEMETRY_DISABLED 1
 ENV UPSTASH_TELEMETRY_DISABLED 1
+ENV EXPO_NO_TELEMETRY 1
 
 # Build the application
 RUN npm run build
