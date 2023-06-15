@@ -1,8 +1,8 @@
 import { Image, Text, View } from "react-native";
-import Button from "../../components/Button";
-import ProgressBar from "../../components/ProgressBar";
-import Welcome2Image from "../../images/welcome2.png";
-import useOnboarding from "../../lib/useOnboarding";
+import Button from "~/components/Button";
+import ProgressBar from "~/components/ProgressBar";
+import Welcome2Image from "~/images/welcome2.png";
+import useOnboarding from "~/lib/useOnboarding";
 
 export default function Basics() {
   const { progress, next } = useOnboarding(1);

@@ -12,7 +12,7 @@ import {
 import dayjs from "dayjs";
 import { Category } from "@packages/db";
 import { formatCategories } from "@packages/lib";
-import { api } from "../../utils/api";
+import { api } from "~/utils/api";
 
 export default function Home() {
   const [take, setTake] = useState(5);

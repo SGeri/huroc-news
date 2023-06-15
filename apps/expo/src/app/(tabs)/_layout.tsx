@@ -1,7 +1,7 @@
 import Icon from "react-native-vector-icons/FontAwesome";
 import { Tabs } from "expo-router";
-import HeaderRight from "../../components/Header/HeaderRight";
-import HeaderTitle from "../../components/Header/HeaderTitle";
+import HeaderRight from "~/components/Header/HeaderRight";
+import HeaderTitle from "~/components/Header/HeaderTitle";
 
 const NEWS_LINK = "https://huroc.com/hrc-news";
 const CONTACT_LINK = "https://m.me/hungarianrockstarclub";

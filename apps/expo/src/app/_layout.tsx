@@ -7,9 +7,9 @@ import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
 import { useNavigationContainerRef } from "@react-navigation/native";
 import days from "dayjs";
-import { getItem } from "../lib/storage";
-import { TRPCProvider } from "../utils/api";
-import fonts from "../utils/fonts";
+import { TRPCProvider } from "~/utils/api";
+import fonts from "~/utils/fonts";
+import { getItem } from "~/lib/storage";
 import "dayjs/locale/hu";
 
 // Localization

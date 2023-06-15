@@ -1,8 +1,8 @@
 import { Image, Text, View } from "react-native";
-import Button from "../../components/Button";
-import ProgressBar from "../../components/ProgressBar";
-import Welcome3Image from "../../images/welcome3.png";
-import useOnboarding from "../../lib/useOnboarding";
+import Button from "~/components/Button";
+import ProgressBar from "~/components/ProgressBar";
+import Welcome3Image from "~/images/welcome3.png";
+import useOnboarding from "~/lib/useOnboarding";
 
 export default function Notifications() {
   const { progress, next } = useOnboarding(2);

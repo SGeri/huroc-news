@@ -1,8 +1,8 @@
 import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { useRouter } from "expo-router";
-import Button from "../../../components/Button";
-import Infobox from "../../../components/Infobox";
+import Button from "~/components/Button";
+import Infobox from "~/components/Infobox";
 
 const documents = [
   {

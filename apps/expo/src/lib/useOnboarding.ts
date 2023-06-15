@@ -1,6 +1,6 @@
 import Toast from "react-native-toast-message";
 import { useRouter } from "expo-router";
-import { api } from "../utils/api";
+import { api } from "~/utils/api";
 import { getPushNotificationToken } from "./notifications";
 import { getItem, setItem } from "./storage";
 

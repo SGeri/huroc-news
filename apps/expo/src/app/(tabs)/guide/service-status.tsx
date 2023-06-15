@@ -1,7 +1,7 @@
 import { Text, View } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { useRouter } from "expo-router";
-import Button from "../../../components/Button";
+import Button from "~/components/Button";
 
 // // zöld #00FF00, sárga #FFA500, piros #FF0000
 const icons = [

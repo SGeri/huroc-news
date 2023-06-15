@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { ScrollView, Text, View } from "react-native";
-import Button from "../../components/Button";
-import Checkbox from "../../components/Checkbox";
-import ProgressBar from "../../components/ProgressBar";
-import useOnboarding, { type Notification } from "../../lib/useOnboarding";
+import Button from "~/components/Button";
+import Checkbox from "~/components/Checkbox";
+import ProgressBar from "~/components/ProgressBar";
+import useOnboarding, { type Notification } from "~/lib/useOnboarding";
 
 export default function NotificationsPicker() {
   const { progress, next, saveNotifications, notificationOptions } =

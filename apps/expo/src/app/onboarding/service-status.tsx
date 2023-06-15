@@ -1,8 +1,8 @@
 import { Image, Text, View } from "react-native";
-import Button from "../../components/Button";
-import ProgressBar from "../../components/ProgressBar";
-import Welcome5Image from "../../images/welcome5.png";
-import useOnboarding from "../../lib/useOnboarding";
+import Button from "~/components/Button";
+import ProgressBar from "~/components/ProgressBar";
+import Welcome5Image from "~/images/welcome5.png";
+import useOnboarding from "~/lib/useOnboarding";
 
 export default function ServiceStatus() {
   const { progress, next } = useOnboarding(4);

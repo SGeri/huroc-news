@@ -1,6 +1,6 @@
 import { Image, Linking, Text, TouchableOpacity, View } from "react-native";
 
-const HurocLogo = require("../../images/huroc_logo.png");
+const HurocLogo = require("~/images/huroc_logo.png");
 
 type HeaderTitleProps = {
   newsLink: string;

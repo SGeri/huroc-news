@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { Image, ScrollView, Text, View } from "react-native";
 import Toast from "react-native-toast-message";
-import Button from "../../components/Button";
-import Checkbox from "../../components/Checkbox";
-import ProgressBar from "../../components/ProgressBar";
-import Welcome6Image from "../../images/welcome6.png";
-import useOnboarding, { type Document } from "../../lib/useOnboarding";
+import Button from "~/components/Button";
+import Checkbox from "~/components/Checkbox";
+import ProgressBar from "~/components/ProgressBar";
+import Welcome6Image from "~/images/welcome6.png";
+import useOnboarding, { type Document } from "~/lib/useOnboarding";
 
 // We should reconsider the use of the image
 

@@ -1,7 +1,7 @@
 import { Text, TouchableOpacity, View } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { useRouter } from "expo-router";
-import Infobox from "../../../components/Infobox";
+import Infobox from "~/components/Infobox";
 
 const guideOptions = [
   {

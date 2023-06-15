@@ -2,7 +2,7 @@ import { Text, TouchableOpacity, View } from "react-native";
 import IconFA from "react-native-vector-icons/FontAwesome";
 import Icon from "react-native-vector-icons/Fontisto";
 import { useRouter } from "expo-router";
-import Infobox from "../../../components/Infobox";
+import Infobox from "~/components/Infobox";
 
 const supportOptions = [
   {
