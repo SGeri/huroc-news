@@ -10,21 +10,19 @@ import useOnboarding, { Notification } from "~/lib/useOnboarding";
 export default function Notifications() {
   const [token, setToken] = useState<string | null>(null);
   const { notificationOptions } = useOnboarding(0);
-  const { data: notifications, isLoading: loading } =
-    api.devices.getNotifications.useQuery(
-      {
-        token: "token",
+  const { refetch, isLoading: loading } = api.devices.getNotifications.useQuery(
+    { token: token ?? "" },
+    {
+      enabled: !!token,
+      onSuccess(data) {
+        setSelectedNotifications(data);
       },
-      {
-        enabled: !!token,
-      },
-    );
+    },
+  );
   const registerDevice = api.devices.registerDevice.useMutation();
 
   const [selectedNotifications, setSelectedNotifications] = useState(
-    notifications?.length
-      ? notifications
-      : notificationOptions.map((o) => o.value),
+    notificationOptions.map((o) => o.value),
   );
 
   const toggleNotification = (value: Notification) => {
@@ -54,7 +52,7 @@ export default function Notifications() {
     setToken(token);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!token)
       return Toast.show({
         type: "error",
@@ -62,10 +60,12 @@ export default function Notifications() {
         text2: "Nem menthetők az értesítések (token nem található).",
       });
 
-    registerDevice.mutateAsync({
+    await registerDevice.mutateAsync({
       token,
       selectedNotifications,
     });
+
+    refetch();
   };
 
   useEffect(() => {
