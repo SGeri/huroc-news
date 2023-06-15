@@ -10,6 +10,8 @@ import {
   Text,
   Title,
 } from "@mantine/core";
+import { modals } from "@mantine/modals";
+import { Post } from "@packages/db";
 import { api } from "~/utils/api";
 import { requireAuth } from "~/utils/auth";
 import Card from "~/components/Card";
@@ -32,8 +34,10 @@ const Home: NextPage = () => {
   const { total, posts } = data || {};
 
   const [opened, setOpened] = useState(false);
-  const { mutateAsync: createPost, isLoading: createPostLoading } =
-    api.posts.createPost.useMutation();
+  const [postToEdit, setPostToEdit] = useState<Post | null>(null);
+  const createPost = api.posts.createPost.useMutation();
+  const updatePost = api.posts.updatePost.useMutation();
+  const removePost = api.posts.removePost.useMutation();
 
   const handleScrollPositionChange = ({ x }: { x: number }) => {
     if (!ref.current) return;
@@ -48,14 +52,50 @@ const Home: NextPage = () => {
   };
 
   const handleNewClick = () => {
+    setPostToEdit(null);
     setOpened(true);
   };
 
-  const handleNewPostCreate = async (values: FormValues) => {
-    await createPost(values);
+  const handleNew = async (values: FormValues) => {
+    await createPost.mutateAsync(values);
 
     setOpened(false);
 
+    refetch();
+  };
+
+  const handleEditClick = async (id: string) => {
+    setPostToEdit(posts?.find((post) => post.id === id) || null);
+    setOpened(true);
+  };
+
+  const handleEditSend = async (values: FormValues) => {
+    if (!postToEdit?.id) return;
+
+    await updatePost.mutateAsync({
+      id: postToEdit.id,
+      post: values,
+    });
+  };
+
+  const handleRemoveClick = async (id: string) => {
+    modals.openConfirmModal({
+      title: "Please confirm your action",
+      children: (
+        <Text size="sm">Are you sure you want to remove this post? ({id})</Text>
+      ),
+      labels: { confirm: "Confirm", cancel: "Cancel" },
+      onConfirm: () => handleRemoveConfirmation(id),
+    });
+  };
+
+  const handleRemoveConfirmation = async (id: string) => {
+    await removePost.mutateAsync({ id });
+  };
+
+  const handleFormSubmit = async (values: FormValues) => {
+    postToEdit ? await handleEditSend(values) : await handleNew(values);
+    setOpened(false);
     refetch();
   };
 
@@ -89,9 +129,10 @@ const Home: NextPage = () => {
       {opened && (
         <Form
           opened={opened}
-          loading={createPostLoading}
+          defaultValues={postToEdit || undefined}
+          loading={createPost.isLoading || updatePost.isLoading}
           onClose={() => setOpened(false)}
-          onSubmit={handleNewPostCreate}
+          onSubmit={handleFormSubmit}
         />
       )}
 
@@ -109,6 +150,8 @@ const Home: NextPage = () => {
               category={post.category}
               timestamp={post.createdAt}
               title={post.title}
+              onEditClick={() => handleEditClick(post.id)}
+              onDeleteClick={() => handleRemoveClick(post.id)}
             />
           ))}
           {!getPostsLoading && total != posts?.length && (

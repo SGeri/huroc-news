@@ -13,6 +13,7 @@ export type FormProps = {
   onClose: () => void;
   onSubmit: (values: FormValues) => void;
   loading: boolean;
+  defaultValues?: FormValues;
 };
 
 export type FormValues = {
@@ -46,10 +47,10 @@ export default function Form({
   opened,
   onClose,
   onSubmit,
-  loading,
+  defaultValues,
 }: FormProps) {
   const form = useForm({
-    initialValues,
+    initialValues: defaultValues || initialValues,
 
     validate: {
       title: isNotEmpty("This field is required"),

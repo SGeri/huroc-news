@@ -1,0 +1,16 @@
+{
+  "name": "@packages/lib",
+  "version": "0.1.0",
+  "license": "MIT",
+  "main": "./index.ts",
+  "types": "./index.ts",
+  "scripts": {
+    "clean": "rm -rf .turbo node_modules"
+  },
+  "dependencies": {
+    "@packages/db": "*"
+  },
+  "devDependencies": {
+    "typescript": "^4.9.5"
+  }
+}

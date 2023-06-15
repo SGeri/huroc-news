@@ -126,7 +126,6 @@ export default function useOnboarding(pageIndex: number) {
       console.log("error", String(e));
     }
 
-    // todo: clear router history
     router.replace("/");
   };
 

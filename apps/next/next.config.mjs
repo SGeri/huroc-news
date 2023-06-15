@@ -6,7 +6,7 @@
 
 /** @type {import("next").NextConfig} */
 const config = {
-  transpilePackages: ["@packages/api", "@packages/db"],
+  transpilePackages: ["@packages/api", "@packages/db", "@packages/lib"],
   eslint: { ignoreDuringBuilds: false },
   typescript: { ignoreBuildErrors: false },
   images: {

@@ -1,7 +1,8 @@
 import Image from "next/image";
 import days from "dayjs";
+import { FaPen, FaTrash } from "react-icons/fa";
 import { Category } from "@packages/db";
-import { formatCategories, formatCategory } from "~/utils/category";
+import { formatCategories } from "@packages/lib";
 
 export type CardProps = {
   image: string;
@@ -9,9 +10,19 @@ export type CardProps = {
   timestamp: Date;
   title: string;
   showActions?: boolean;
+  onEditClick?: () => void;
+  onDeleteClick?: () => void;
 };
 
-export default function Card({ image, category, timestamp, title }: CardProps) {
+export default function Card({
+  image,
+  category,
+  timestamp,
+  title,
+  showActions = true,
+  onEditClick,
+  onDeleteClick,
+}: CardProps) {
   return (
     <div className="flex w-80 flex-col">
       <div className="mb-3 h-96 w-full rounded-md border border-white border-opacity-50 bg-black">
@@ -38,14 +49,22 @@ export default function Card({ image, category, timestamp, title }: CardProps) {
         </div>
       </div>
 
-      <div className="flex flex-row items-center justify-center gap-4">
-        <div className="flex h-8 w-8 items-center justify-center bg-red-500 text-center">
-          A
+      {showActions && (
+        <div className="flex flex-row items-center justify-center gap-4">
+          <div
+            className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-md border border-white bg-black"
+            onClick={onEditClick}
+          >
+            <FaPen />
+          </div>
+          <div
+            className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-md border border-white bg-black"
+            onClick={onDeleteClick}
+          >
+            <FaTrash />
+          </div>
         </div>
-        <div className="flex h-8 w-8 items-center justify-center bg-red-500 text-center">
-          B
-        </div>
-      </div>
+      )}
     </div>
   );
 }

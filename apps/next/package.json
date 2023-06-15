@@ -23,6 +23,7 @@
     "@mantine/notifications": "^6.0.2",
     "@packages/api": "*",
     "@packages/db": "*",
+    "@packages/lib": "*",
     "@packages/tailwind-config": "*",
     "@tanstack/react-query": "^4.24.10",
     "@trpc/client": "^10.14.0",

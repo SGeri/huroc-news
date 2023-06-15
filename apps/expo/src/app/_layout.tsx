@@ -10,11 +10,12 @@ import days from "dayjs";
 import { getItem } from "../lib/storage";
 import { TRPCProvider } from "../utils/api";
 import fonts from "../utils/fonts";
+import "dayjs/locale/hu";
 
 // Localization
 days.locale("hu");
 
-const RootLayout = () => {
+export default function RootLayout() {
   const router = useRouter();
   const navigationRef = useNavigationContainerRef();
   const [fontsLoaded] = useFonts(fonts);
@@ -63,6 +64,4 @@ const RootLayout = () => {
       </SafeAreaProvider>
     </TRPCProvider>
   );
-};
-
-export default RootLayout;
+}

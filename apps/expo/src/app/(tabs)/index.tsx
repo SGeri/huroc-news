@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import dayjs from "dayjs";
 import { Category } from "@packages/db";
+import { formatCategories } from "@packages/lib";
 import { api } from "../../utils/api";
 
 export default function Page() {
@@ -63,7 +64,8 @@ export default function Page() {
               <View className="flex h-[40%] flex-col justify-center p-8">
                 <View className="flex flex-row">
                   <Text className="font-noto-sans-regular text-sm text-white">
-                    {pinned.category.join(" ")} |{" "}
+                    {formatCategories(pinned.category).join(", ")}
+                    {" | "}
                   </Text>
                   <Text className="font-noto-sans-regular text-sm text-gray-600">
                     {dayjs(pinned.createdAt).format("YYYY. MMMM DD. HH:mm")}
@@ -138,7 +140,8 @@ function Card({ title, image, category, timestamp, link }: CardProps) {
       <View className="flex h-[40%] flex-col justify-center p-5">
         <View className="flex flex-row">
           <Text className="font-noto-sans-regular text-sm text-white">
-            {category.join(" ")} |{" "}
+            {formatCategories(category).join(", ")}
+            {" | "}
           </Text>
           <Text className="font-noto-sans-regular text-sm text-gray-600">
             {dayjs(timestamp).format("YYYY. MMMM DD.")}
