@@ -2,7 +2,7 @@ import type { ExpoConfig } from "@expo/config";
 
 const defineConfig = (): ExpoConfig => ({
   name: "HRC News",
-  slug: "hrc-news",
+  slug: "huroc-news",
   scheme: "hrcnews",
   version: "1.0.0",
   orientation: "portrait",
@@ -14,9 +14,6 @@ const defineConfig = (): ExpoConfig => ({
     backgroundColor: "white",
   },
   owner: "hurocdev",
-  updates: {
-    fallbackToCacheTimeout: 0,
-  },
   assetBundlePatterns: ["**/*"],
   ios: {
     supportsTablet: true,
@@ -33,6 +30,13 @@ const defineConfig = (): ExpoConfig => ({
     eas: {
       projectId: "de3da78e-ba2d-49c4-98fc-4223b40005dc",
     },
+  },
+  updates: {
+    fallbackToCacheTimeout: 0,
+    url: "https://u.expo.dev/de3da78e-ba2d-49c4-98fc-4223b40005dc",
+  },
+  runtimeVersion: {
+    policy: "sdkVersion",
   },
   plugins: ["./expo-plugins/with-modify-gradle.js"],
 });

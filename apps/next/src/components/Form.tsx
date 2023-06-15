@@ -2,6 +2,7 @@ import {
   Button,
   Center,
   Checkbox,
+  LoadingOverlay,
   Modal,
   MultiSelect,
   TextInput,
@@ -40,7 +41,7 @@ const initialValues = {
   category: [],
   image: "",
   link: "",
-  pinned: false,
+  pinned: true,
 } satisfies FormValues;
 
 export default function Form({
@@ -48,6 +49,7 @@ export default function Form({
   onClose,
   onSubmit,
   defaultValues,
+  loading,
 }: FormProps) {
   const form = useForm({
     initialValues: defaultValues || initialValues,
@@ -62,6 +64,8 @@ export default function Form({
 
   return (
     <Modal opened={opened} onClose={onClose} title="Add New Post" centered>
+      <LoadingOverlay visible={loading} overlayBlur={2} />
+
       <form onSubmit={form.onSubmit((values) => onSubmit(values))}>
         <TextInput
           label="Title"
@@ -91,7 +95,12 @@ export default function Form({
           mb="sm"
           {...form.getInputProps("category")}
         />
-        <Checkbox label="Pinned" {...form.getInputProps("pinned")} />
+        <Checkbox
+          label="Pinned"
+          // getInputProps only returns value prop, not checked
+          checked={form.getInputProps("pinned").value}
+          {...form.getInputProps("pinned")}
+        />
 
         <Center>
           <Button type="submit">Post</Button>
