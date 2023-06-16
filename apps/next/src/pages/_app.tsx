@@ -68,8 +68,8 @@ const MyApp: AppType = ({ Component, pageProps }) => (
     className={`${BebasNeue.variable} ${ChairdrobeRounded.variable} ${NotoSans.variable}`}
   >
     <Head>
-      <title>Authentication Playground</title>
-      <meta name="description" content="Authentication Playground" />
+      <title>Huroc News</title>
+      <meta name="description" content="Huroc News - Administration" />
       <link rel="icon" href="/favicon.ico" />
     </Head>
 
