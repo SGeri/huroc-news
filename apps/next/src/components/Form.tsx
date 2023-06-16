@@ -98,7 +98,7 @@ export default function Form({
         <Checkbox
           label="Pinned"
           // getInputProps only returns value prop, not checked
-          checked={form.getInputProps("pinned").value}
+          checked={form.getInputProps("pinned").value as boolean}
           {...form.getInputProps("pinned")}
         />
 

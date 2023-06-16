@@ -88,7 +88,7 @@ const SignInPage = () => {
         Administration & Management
       </Text>
 
-      <form onSubmit={form.onSubmit((values) => handleSubmit(values))}>
+      <form onSubmit={form.onSubmit((values) => void handleSubmit(values))}>
         <Paper withBorder shadow="md" p={30} mt={30} radius="md">
           <TextInput
             label="Email"

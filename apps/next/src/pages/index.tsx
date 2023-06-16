@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { NextPage } from "next";
+import { type NextPage } from "next";
 import { SignOutButton } from "@clerk/nextjs";
 import {
   Button,
@@ -11,7 +11,7 @@ import {
   Title,
 } from "@mantine/core";
 import { modals } from "@mantine/modals";
-import { Post } from "@packages/db";
+import { type Post } from "@packages/db";
 import { api } from "~/utils/api";
 import { requireAuth } from "~/utils/auth";
 import Card from "~/components/Card";
@@ -61,10 +61,10 @@ const Home: NextPage = () => {
 
     setOpened(false);
 
-    refetch();
+    void refetch();
   };
 
-  const handleEditClick = async (id: string) => {
+  const handleEditClick = (id: string) => {
     setPostToEdit(posts?.find((post) => post.id === id) || null);
     setOpened(true);
   };
@@ -78,14 +78,14 @@ const Home: NextPage = () => {
     });
   };
 
-  const handleRemoveClick = async (id: string) => {
+  const handleRemoveClick = (id: string) => {
     modals.openConfirmModal({
       title: "Please confirm your action",
       children: (
         <Text size="sm">Are you sure you want to remove this post? ({id})</Text>
       ),
       labels: { confirm: "Confirm", cancel: "Cancel" },
-      onConfirm: () => handleRemoveConfirmation(id),
+      onConfirm: () => void handleRemoveConfirmation(id),
     });
   };
 
@@ -96,7 +96,7 @@ const Home: NextPage = () => {
   const handleFormSubmit = async (values: FormValues) => {
     postToEdit ? await handleEditSend(values) : await handleNew(values);
     setOpened(false);
-    refetch();
+    void refetch();
   };
 
   return (

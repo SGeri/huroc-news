@@ -2,7 +2,7 @@ import type { GetServerSidePropsContext } from "next";
 import { buildClerkProps, getAuth } from "@clerk/nextjs/server";
 
 export const requireAuth = () => {
-  return async (ctx: GetServerSidePropsContext) => {
+  return (ctx: GetServerSidePropsContext) => {
     const { userId } = getAuth(ctx.req);
 
     if (!userId) return redirect(ctx);

@@ -30,7 +30,7 @@ const getBaseUrl = () => {
 
   if (!localhost) {
     // return "https://your-production-url.com";
-    return "http://10.0.2.2:3000"; // temporary fix for android
+    return "http://192.168.1.38:3000"; // temporary fix for android
     throw new Error(
       "Failed to get localhost. Please point to your production server.",
     );

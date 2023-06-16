@@ -1,7 +1,7 @@
 import Image from "next/image";
 import days from "dayjs";
 import { FaPen, FaTrash } from "react-icons/fa";
-import { Category } from "@packages/db";
+import { type Category } from "@packages/db";
 import { formatCategories } from "@packages/lib";
 
 export type CardProps = {
