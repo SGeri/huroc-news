@@ -44,7 +44,8 @@
     "react-native-screens": "~3.20.0",
     "react-native-toast-message": "^2.1.6",
     "react-native-vector-icons": "^9.2.0",
-    "superjson": "1.9.1"
+    "superjson": "1.9.1",
+    "expo-updates": "~0.16.4"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
@@ -55,7 +56,7 @@
     "@packages/db": "*",
     "@packages/tailwind-config": "*",
     "@types/cross-spawn": "^6.0.2",
-    "@types/react": "^18.0.27",
+    "@types/react": "~18.0.27",
     "@types/webpack-env": "^1.18.0",
     "cross-env": "^7.0.3",
     "cross-spawn": "^7.0.3",
