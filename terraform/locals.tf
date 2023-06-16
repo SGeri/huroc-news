@@ -4,4 +4,5 @@ locals {
   DOMAIN    = "huroc.com"
   URL       = "${local.SUBDOMAIN}.${local.DOMAIN}"
   NAME      = "huroc-news"
+  DB_NAME   = "hrcnewsdb"
 }

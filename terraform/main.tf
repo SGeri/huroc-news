@@ -96,12 +96,17 @@ resource "aws_db_instance" "postgres" {
   allocated_storage   = 5
   engine              = "postgres"
   engine_version      = "15.2"
+  db_name             = local.DB_NAME
   username            = var.AWS_RDS_USERNAME
   password            = var.AWS_RDS_PASSWORD
   publicly_accessible = true
   skip_final_snapshot = true
 }
 
+output "database_url" {
+  value     = "postgres://${aws_db_instance.postgres.username}:${aws_db_instance.postgres.password}@${aws_db_instance.postgres.endpoint}/${aws_db_instance.postgres.db_name}"
+  sensitive = true
+}
 
 /* --- DATA SOURCES --- */
 data "upstash_redis_database_data" "redis_data" {
