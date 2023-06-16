@@ -5,6 +5,9 @@ node_modules
 .pnp
 .pnp.js
 
+# debugs
+**/debug.log
+
 # testing
 coverage
 

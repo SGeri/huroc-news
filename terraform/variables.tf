@@ -1,7 +1,10 @@
 variable "VERCEL_API_TOKEN" {}
+variable "VERCEL_TEAM_SLUG" {}
 variable "UPSTASH_EMAIL" {}
 variable "UPSTASH_API_KEY" {}
 variable "AWS_ACCESS_KEY" {}
 variable "AWS_SECRET_KEY" {}
+variable "AWS_RDS_USERNAME" {}
+variable "AWS_RDS_PASSWORD" {}
 variable "NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY" {}
 variable "CLERK_SECRET_KEY" {}

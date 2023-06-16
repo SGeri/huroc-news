@@ -18,6 +18,7 @@ terraform {
 /* --- PROVIDERS --- */
 provider "vercel" {
   api_token = var.VERCEL_API_TOKEN
+  team      = var.VERCEL_TEAM_SLUG
 }
 
 provider "upstash" {
@@ -42,7 +43,7 @@ resource "vercel_project" "next" {
   environment = [
     {
       key    = "DATABASE_URL"
-      value  = "postgres://${local.NAME}:${local.NAME}@${aws_db_instance.postgres.address}"
+      value  = "postgres://${var.AWS_RDS_USERNAME}:${var.AWS_RDS_PASSWORD}@${aws_db_instance.postgres.address}"
       target = ["development", "preview", "production"]
     },
     {
@@ -89,19 +90,17 @@ resource "upstash_redis_database" "redis" {
   tls           = "true"
 }
 
-// an aws postgress database using RDS
-/*resource "aws_db_instance" "postgres" {
-  allocated_storage    = 20
-  engine               = "postgres"
-  engine_version       = "13.3"
-  instance_class       = "db.t2.micro"
-  name                 = local.NAME
-  username             = local.NAME
-  password             = local.NAME
-  parameter_group_name = "default.postgres13"
-  skip_final_snapshot  = true
-  publicly_accessible  = true
-}*/
+resource "aws_db_instance" "postgres" {
+  identifier          = "postgres"
+  instance_class      = "db.t3.micro"
+  allocated_storage   = 5
+  engine              = "postgres"
+  engine_version      = "15.2"
+  username            = var.AWS_RDS_USERNAME
+  password            = var.AWS_RDS_PASSWORD
+  publicly_accessible = true
+  skip_final_snapshot = true
+}
 
 
 /* --- DATA SOURCES --- */
