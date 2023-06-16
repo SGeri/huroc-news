@@ -68,7 +68,7 @@ export default function Home() {
                     {" | "}
                   </Text>
                   <Text className="font-noto-sans-regular text-sm text-gray-600">
-                    {dayjs(pinned.createdAt).format("YYYY. MMMM DD. HH:mm")}
+                    {dayjs(pinned.createdAt).format("YYYY. MMMM DD.")}
                   </Text>
                 </View>
                 <Text className="font-noto-sans-bold text-xl text-white">

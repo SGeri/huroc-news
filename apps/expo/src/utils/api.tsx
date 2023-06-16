@@ -26,10 +26,8 @@ const getBaseUrl = () => {
    */
   const localhost = Constants.manifest?.debuggerHost?.split(":")[0];
 
-  console.log("localhost", Constants.manifest?.debuggerHost);
-
   if (!localhost) {
-    // return "https://your-production-url.com";
+    return "https://news.huroc.com";
     return "http://192.168.1.38:3000"; // temporary fix for android
     throw new Error(
       "Failed to get localhost. Please point to your production server.",

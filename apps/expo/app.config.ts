@@ -6,7 +6,7 @@ const defineConfig = (): ExpoConfig => ({
   scheme: "hrcnews",
   version: "1.0.0",
   orientation: "portrait",
-  icon: "./assets/logo.png",
+  icon: "./assets/logo_filled.png",
   userInterfaceStyle: "light",
   splash: {
     image: "./assets/splash.png",
@@ -31,10 +31,10 @@ const defineConfig = (): ExpoConfig => ({
       projectId: "de3da78e-ba2d-49c4-98fc-4223b40005dc",
     },
   },
-  updates: {
-    fallbackToCacheTimeout: 0,
-    url: "https://u.expo.dev/de3da78e-ba2d-49c4-98fc-4223b40005dc",
-  },
+  //updates: {
+  // fallbackToCacheTimeout: 0,
+  //  url: "https://u.expo.dev/de3da78e-ba2d-49c4-98fc-4223b40005dc",
+  //},
   runtimeVersion: {
     policy: "sdkVersion",
   },
