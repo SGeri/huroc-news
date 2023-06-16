@@ -11,7 +11,7 @@ const defineConfig = (): ExpoConfig => ({
   splash: {
     image: "./assets/splash.png",
     resizeMode: "contain",
-    backgroundColor: "white",
+    backgroundColor: "#FFFFFF",
   },
   owner: "hurocdev",
   assetBundlePatterns: ["**/*"],
