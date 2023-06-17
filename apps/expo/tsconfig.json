@@ -12,7 +12,7 @@
     "expo-plugins",
     "./src/**/*",
     "app.config.ts",
-    "index.tsx",
+    "App.tsx",
     "global.d.ts"
   ],
   "exclude": ["node_modules"]
