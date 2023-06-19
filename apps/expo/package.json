@@ -2,13 +2,22 @@
   "name": "@apps/expo",
   "version": "0.1.0",
   "main": "index.js",
+  "workspaces": {
+    "nohoist": [
+      "react-native",
+      "react-native/**"
+    ]
+  },
   "scripts": {
     "clean": "git clean -xdf .expo .turbo node_modules",
     "dev": "expo start --android",
     "dev:android": "expo start --android",
     "dev:ios": "expo start --ios",
     "lint": "eslint .",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "start": "expo start --dev-client",
+    "android": "expo run:android",
+    "ios": "expo run:ios"
   },
   "dependencies": {
     "@packages/lib": "*",
@@ -21,7 +30,7 @@
     "babel-plugin-module-resolver": "^5.0.0",
     "clsx": "^1.2.1",
     "dayjs": "^1.11.8",
-    "expo": "^48.0.4",
+    "expo": "~48.0.18",
     "expo-build-properties": "~0.6.0",
     "expo-constants": "~14.2.1",
     "expo-dev-client": "~2.2.1",
@@ -43,7 +52,9 @@
     "react-native-screens": "~3.20.0",
     "react-native-toast-message": "^2.1.6",
     "react-native-vector-icons": "^9.2.0",
-    "superjson": "1.9.1"
+    "superjson": "1.9.1",
+    "expo-system-ui": "~2.2.1",
+    "react-native-gesture-handler": "~2.9.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
