@@ -31,10 +31,10 @@ const defineConfig = (): ExpoConfig => ({
       projectId: "de3da78e-ba2d-49c4-98fc-4223b40005dc",
     },
   },
-  //updates: {
-  //  fallbackToCacheTimeout: 0,
-  //  url: "https://u.expo.dev/de3da78e-ba2d-49c4-98fc-4223b40005dc",
-  //},
+  updates: {
+    fallbackToCacheTimeout: 0,
+    url: "https://u.expo.dev/de3da78e-ba2d-49c4-98fc-4223b40005dc",
+  },
   runtimeVersion: {
     policy: "sdkVersion",
   },
