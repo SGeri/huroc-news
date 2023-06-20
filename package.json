@@ -19,7 +19,7 @@
     "db:generate": "dotenv -e .env -- turbo db:generate",
     "db:push": "dotenv -e .env -- turbo db:push db:generate",
     "dev": "npm run kill-port && dotenv -e .env -- turbo dev --parallel",
-    "dev:mobile": "npm run kill-port && dotenv -e .env -- npm run dev --workspace apps/expo",
+    "dev:mobile": "dotenv -e .env -- npm run dev --workspace apps/expo",
     "dev:web": "npm run kill-port && dotenv -e .env -- npm run dev --workspace apps/next",
     "format": "prettier --write \"**/*.{js,cjs,mjs,ts,tsx,md,json}\" --ignore-path .gitignore",
     "lint": "dotenv -e .env -- turbo lint && manypkg check",
