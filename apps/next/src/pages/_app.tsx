@@ -9,10 +9,10 @@ import { api } from "~/utils/api";
 import "dayjs/locale/hu";
 import localFont from "next/font/local";
 import { ModalsProvider } from "@mantine/modals";
-import days from "dayjs";
+import dayjs from "dayjs";
 
 // Localization
-days.locale("hu");
+dayjs.locale("hu");
 
 // Fonts
 const BebasNeue = localFont({

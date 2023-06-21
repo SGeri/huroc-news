@@ -5,32 +5,28 @@ import { useFonts } from "expo-font";
 import { Stack, useRouter } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
-import { useNavigationContainerRef } from "@react-navigation/native";
-import days from "dayjs";
+import dayjs from "dayjs";
 import { TRPCProvider } from "~/utils/api";
 import fonts from "~/utils/fonts";
 import { getItem } from "~/lib/storage";
 import "dayjs/locale/hu";
 
 // Localization
-days.locale("hu");
+dayjs.locale("hu");
 
 export default function RootLayout() {
   const router = useRouter();
-  const navigationRef = useNavigationContainerRef();
   const [fontsLoaded] = useFonts(fonts);
 
   const onLayoutRootView = useCallback(async () => {
-    if (fontsLoaded) await SplashScreen.hideAsync().catch(() => {});
+    if (fontsLoaded) await SplashScreen.hideAsync();
   }, [fontsLoaded]);
 
-  const checkOnboarding = async () => {
-    if (!navigationRef.isReady()) return;
+  const checkOnboarding: () => Promise<void> = useCallback(async () => {
+    // implement navigation initialiazed check
 
     try {
       const isBoarded = await getItem("onboarding-done");
-
-      console.log("isBoarded", isBoarded);
 
       if (!isBoarded) return router.replace("onboarding/welcome");
     } catch (error) {
@@ -40,11 +36,11 @@ export default function RootLayout() {
         text2: String(error),
       });
     }
-  };
+  }, [router]);
 
   useLayoutEffect(() => {
-    checkOnboarding();
-  }, [router]);
+    checkOnboarding().catch((err) => console.error(err));
+  }, [router, checkOnboarding]);
 
   if (!fontsLoaded) return null;
 

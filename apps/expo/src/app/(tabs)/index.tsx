@@ -10,7 +10,7 @@ import {
   View,
 } from "react-native";
 import dayjs from "dayjs";
-import { Category } from "@packages/db";
+import { type Category } from "@packages/db";
 import { formatCategories } from "@packages/lib";
 import { api } from "~/utils/api";
 
@@ -53,13 +53,14 @@ export default function Home() {
             <TouchableOpacity
               className="mb-4 h-96 w-full border-b border-[#ffffff80] bg-black"
               activeOpacity={0.8}
-              onPress={() => {
-                Linking.openURL(pinned.link);
-              }}
+              onPress={() =>
+                Linking.openURL(pinned.link).catch((err) => console.error(err))
+              }
             >
               <Image
                 className="h-[60%] w-full"
                 source={{ uri: pinned.image }}
+                alt={pinned.title}
               />
               <View className="flex h-[40%] flex-col justify-center p-8">
                 <View className="flex flex-row">
@@ -132,11 +133,13 @@ function Card({ title, image, category, timestamp, link }: CardProps) {
     <TouchableOpacity
       className="mb-5 h-80 w-full rounded-md border border-[#ffffff80] bg-black"
       activeOpacity={0.8}
-      onPress={() => {
-        Linking.openURL(link);
-      }}
+      onPress={() => Linking.openURL(link).catch((err) => console.error(err))}
     >
-      <Image source={{ uri: image }} className="h-[60%] w-full rounded-md" />
+      <Image
+        source={{ uri: image }}
+        className="h-[60%] w-full rounded-md"
+        alt={title}
+      />
       <View className="flex h-[40%] flex-col justify-center p-5">
         <View className="flex flex-row">
           <Text className="font-noto-sans-regular text-sm text-white">

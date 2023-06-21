@@ -1,5 +1,5 @@
 import Image from "next/image";
-import days from "dayjs";
+import dayjs from "dayjs";
 import { FaPen, FaTrash } from "react-icons/fa";
 import { type Category } from "@packages/db";
 import { formatCategories } from "@packages/lib";
@@ -42,7 +42,7 @@ export default function Card({
               {" | "}
             </p>
             <p className="text-gray-400">
-              {days(timestamp).format("YYYY. MMMM DD.")}
+              {dayjs(timestamp).format("YYYY. MMMM DD.")}
             </p>
           </div>
           <p className="text-2xl text-white">{title}</p>
