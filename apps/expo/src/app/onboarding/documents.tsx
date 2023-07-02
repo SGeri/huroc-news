@@ -67,14 +67,12 @@ export default function Documents() {
             <Button width={100} height={40} onPress={handleNext}>
               Tovább
             </Button>
-
-            <View className="mb-96" />
           </View>
         </ScrollView>
       </View>
 
       <Image
-        className="absolute bottom-0 left-0 aspect-square h-[50%] min-h-[200] w-full"
+        className="absolute -bottom-44 left-0 aspect-square h-[50%] min-h-[200] w-full"
         source={Welcome6Image}
       />
     </>

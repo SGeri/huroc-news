@@ -27,7 +27,10 @@ export default function ServiceStatus() {
           </Button>
         </View>
 
-        <Image className="h-[60%] w-full" source={Welcome5Image} />
+        <Image
+          className="absolute bottom-0 h-[60%] w-full"
+          source={Welcome5Image}
+        />
       </View>
     </>
   );
