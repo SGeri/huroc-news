@@ -37,7 +37,7 @@ export default function About() {
 
         <Text className="font-noto-sans-regular mb-5 text-white">
           A HRC News alkalmazás nem hivatalos csatorna, és semmilyen
-          kapcsolatban nem áll a Rokstar Games és/vagy Take-Two Interactive
+          kapcsolatban nem áll a Rockstar Games és/vagy Take-Two Interactive
           vállalatokkal. További információkért kérjük, tekintsd meg az ezzel
           kapcsolatos tájékoztatónkat.
         </Text>

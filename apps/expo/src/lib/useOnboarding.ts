@@ -1,3 +1,4 @@
+import { Alert } from "react-native";
 import Toast from "react-native-toast-message";
 import { useRouter } from "expo-router";
 import { api } from "~/utils/api";
@@ -123,6 +124,7 @@ export default function useOnboarding(pageIndex: number) {
         text1: "Onboarding",
         text2: "Az onboarding nem sikerült! " + String(e),
       });
+      Alert.alert("Hiba", "Az onboarding nem sikerült! " + String(e));
       console.log("error", String(e));
     }
 

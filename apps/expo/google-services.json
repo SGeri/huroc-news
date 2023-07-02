@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "971992574727",
+    "project_id": "hrc-news-c2083",
+    "storage_bucket": "hrc-news-c2083.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:971992574727:android:f2ebf17322880eb511f3a2",
+        "android_client_info": {
+          "package_name": "news.huroc.com"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "971992574727-ra4p9crcruigt1ma7o6rm71v5o23r8d0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBWWhMhBW7eAAZgk8X-lfTVK-9LqLsR8GU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "971992574727-ra4p9crcruigt1ma7o6rm71v5o23r8d0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

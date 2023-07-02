@@ -25,6 +25,7 @@ const defineConfig = (): ExpoConfig => ({
       foregroundImage: "./assets/logo_filled.png",
       backgroundColor: "#1F104A",
     },
+    googleServicesFile: "./google-services.json",
   },
   extra: {
     eas: {

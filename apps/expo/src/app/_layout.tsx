@@ -10,9 +10,20 @@ import { TRPCProvider } from "~/utils/api";
 import fonts from "~/utils/fonts";
 import { getItem } from "~/lib/storage";
 import "dayjs/locale/hu";
+import * as Notifications from "expo-notifications";
 
 // Localization
 dayjs.locale("hu");
+
+// Initialize notifications
+Notifications.setNotificationHandler({
+  // eslint-disable-next-line
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: false,
+    shouldSetBadge: false,
+  }),
+});
 
 export default function RootLayout() {
   const router = useRouter();

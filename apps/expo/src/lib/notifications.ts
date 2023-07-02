@@ -21,8 +21,7 @@ export async function getPushNotificationToken() {
       return Toast.show({
         type: "error",
         text1: "Push értesítések",
-        text2:
-          "Az értesítések fogadásához engedélyezd a push értesítéseket a beállításokban!",
+        text2: "Engedélyezd az értesítéseket a beállításokban!",
       });
     }
 
@@ -31,12 +30,12 @@ export async function getPushNotificationToken() {
     Toast.show({
       type: "error",
       text1: "Push értesítések",
-      text2: "Az értesítések fogadásához fizikai eszközt kell használnod!",
+      text2: "Fizikai eszközt kell használnod!",
     });
   }
 
   if (Platform.OS === "android") {
-    Notifications.setNotificationChannelAsync("default", {
+    await Notifications.setNotificationChannelAsync("default", {
       name: "default",
       importance: Notifications.AndroidImportance.MAX,
       vibrationPattern: [0, 250, 250, 250],
