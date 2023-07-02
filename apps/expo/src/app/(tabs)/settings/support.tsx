@@ -8,13 +8,13 @@ const supportOptions = [
   {
     icon: "messenger",
     text: "Live Chat",
-    link: "https://suport.com",
+    link: "https://m.me/hungarianrockstarclub",
     info: "Általában 1 óra",
   },
   {
     icon: "email",
     text: "Email cím",
-    link: "https://suport.com",
+    link: "mailto:info@huroc.com",
     info: "Általában 24 óra",
   },
 ];

@@ -68,7 +68,7 @@ export default function Home() {
                     {formatCategories(pinned.category).join(", ")}
                     {" | "}
                   </Text>
-                  <Text className="font-noto-sans-regular text-sm text-gray-600">
+                  <Text className="font-noto-sans-regular text-sm text-[#808080]">
                     {dayjs(pinned.createdAt).format("YYYY. MMMM DD.")}
                   </Text>
                 </View>
@@ -103,7 +103,7 @@ export default function Home() {
                 )}
 
                 <TouchableOpacity
-                  className="h-10 w-44 rounded-md border border-white bg-black p-1"
+                  className="h-10 w-full rounded-md border border-white bg-black p-1"
                   onPress={handleLoadMoreClick}
                   activeOpacity={0.8}
                 >
@@ -146,7 +146,7 @@ function Card({ title, image, category, timestamp, link }: CardProps) {
             {formatCategories(category).join(", ")}
             {" | "}
           </Text>
-          <Text className="font-noto-sans-regular text-sm text-gray-600">
+          <Text className="font-noto-sans-regular text-sm text-[#808080]">
             {dayjs(timestamp).format("YYYY. MMMM DD.")}
           </Text>
         </View>

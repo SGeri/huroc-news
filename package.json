@@ -30,7 +30,7 @@
     "tf:init": "cd terraform && dotenv -e ../.env -- terraform init",
     "tf:plan": "cd terraform && dotenv -e ../.env -- terraform plan",
     "type-check": "dotenv -e .env -- turbo type-check",
-    "kill-port": "npx kill-port 19000 19001 3000 3001 5555 5556"
+    "kill-port": "npx kill-port 19000 3000 5555"
   },
   "dependencies": {
     "@ianvs/prettier-plugin-sort-imports": "^3.7.1",

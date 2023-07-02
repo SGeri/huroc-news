@@ -22,7 +22,7 @@ const defineConfig = (): ExpoConfig => ({
   android: {
     package: "news.huroc.com",
     adaptiveIcon: {
-      foregroundImage: "./assets/logo.png",
+      foregroundImage: "./assets/logo_filled.png",
       backgroundColor: "#1F104A",
     },
   },

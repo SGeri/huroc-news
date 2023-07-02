@@ -7,12 +7,12 @@ const documents = [
   {
     icon: "lock",
     text: "Használati Feltételek",
-    link: "https://suport.com",
+    link: "https://huroc.com/legal/terms-of-use",
   },
   {
     icon: "lock",
     text: "Szolgáltatási Feltételek",
-    link: "https://suport.com",
+    link: "https://huroc.com/legal",
   },
   {
     icon: "lock",

@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import dayjs from "dayjs";
-import { RouterOutputs, api } from "~/utils/api";
+import { api, type RouterOutputs } from "~/utils/api";
 
 const statusColors = {
   UP: "#00FF00",
@@ -20,6 +20,14 @@ const statusTexts = {
   UP: "Elérhető / UP",
   LIMITED: "Korlátozott / Limited",
   DOWN: "Nem elérhető / Down",
+} as const;
+
+const translatedServiceNames = {
+  "All Features": "Minden szolgáltatás",
+  Authentication: "Hitelesítés / Authentication",
+  Store: "Bolt / Store",
+  "Cloud Services": "Felhő szolgáltatások / Cloud Services",
+  Downloads: "Letöltések / Downloads",
 } as const;
 
 type Status = keyof typeof statusColors;
@@ -54,7 +62,14 @@ function getHeader(status: RouterOutputs["status"]["getStatus"] | undefined) {
   };
 }
 
-export default function Page() {
+function translateServiceName(service: string) {
+  return (
+    translatedServiceNames[service as keyof typeof translatedServiceNames] ||
+    service
+  );
+}
+
+export default function Status() {
   const {
     data: status,
     isLoading: loading,
@@ -160,7 +175,7 @@ export default function Page() {
                               className="font-noto-sans-bold ml-1 text-lg text-white"
                               style={{ color }}
                             >
-                              {platform}
+                              {translateServiceName(platform)}
                             </Text>
                           </View>
                           <Text className="font-noto-sans-bold ml-7 text-lg text-white">
@@ -236,7 +251,7 @@ export default function Page() {
               </Text>
             </View>
             <View className="mb-5 border-t-2 border-white pt-5">
-              <Text className="font-noto-sans-bold ml-1 text-center text-sm text-gray-500">
+              <Text className="font-noto-sans-bold ml-1 text-center text-sm text-[#808080]">
                 Az oldalon automatikusan frissülnek az adatok a Rockstar Games
                 szervereinek állapota alapján, továbbá ugyanazt tartalmazzák,
                 mint a Rockstar Games Service Status oldal. Az oldalt
@@ -244,7 +259,7 @@ export default function Page() {
               </Text>
             </View>
             <View className="mb-5">
-              <Text className="font-noto-sans-bold ml-1 text-center text-sm text-gray-500">
+              <Text className="font-noto-sans-bold ml-1 text-center text-sm text-[#808080]">
                 Ezt az oldalt nem a Rockstar Games vagy a Take-Two Interactive
                 üzemelteti. A huroc.com oldal nem hivatalos csatorna, a
                 Hungarian Rockstar Fan Club pedig nem áll kapcsolatban sem a
@@ -252,7 +267,7 @@ export default function Page() {
               </Text>
             </View>
             <View className="mb-10">
-              <Text className="font-noto-sans-bold ml-1 text-center text-sm text-gray-500">
+              <Text className="font-noto-sans-bold ml-1 text-center text-sm text-[#808080]">
                 This page in unofficial and is not produced or maintained by
                 Rockstar Games, Inc. or Take-Two Interactive Software, Inc.
                 Please note that we are not affiliated with Rockstar Games and
