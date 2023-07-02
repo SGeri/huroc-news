@@ -5,7 +5,7 @@ module.exports = {
   theme: {
     fontFamily: {
       "bebas-neue": ["BebasNeueRegular"],
-      "chairdrobe-rounded-bold": ["ChairdrobeRoundedBold"],
+      "chalet-comprime": ["ChaletComprime"],
       "noto-sans-italic": ["NotoSansItalic"],
       "noto-sans-bolditalic": ["NotoSansBoldItalic"],
       "noto-sans-bold": ["NotoSansBold"],

@@ -27,7 +27,7 @@ export default function About() {
   return (
     <ScrollView className="bg-[#121212]">
       <View className="h-full w-full flex-1 bg-[#121212] p-8">
-        <Text className="font-chairdrobe-rounded-bold mb-3 text-3xl text-white">
+        <Text className="font-chalet-comprime mb-3 text-3xl text-white">
           Az alkalmazásról
         </Text>
 

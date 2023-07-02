@@ -11,7 +11,7 @@ export default function Settings() {
       <ScrollView>
         <View className="flex flex-row items-center gap-2">
           <Icon name="gears" size={25} color="white" />
-          <Text className="font-chairdrobe-rounded-bold mb-3 text-3xl text-white">
+          <Text className="font-chalet-comprime mb-3 text-3xl text-white">
             Tudnivalók a beállításokról
           </Text>
         </View>

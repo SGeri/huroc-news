@@ -26,7 +26,7 @@ export default function Button({
       style={{ width, height }}
       onPress={onPress}
     >
-      <Text className="font-chairdrobe-rounded-bold text-center text-2xl text-white">
+      <Text className="font-chalet-comprime text-center text-2xl text-white">
         {children}
       </Text>
     </TouchableOpacity>

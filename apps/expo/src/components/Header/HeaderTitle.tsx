@@ -17,7 +17,7 @@ export default function HeaderTitle({
     >
       <Image source={HurocLogo} className="mr-2 h-8 w-8" />
       <View className="flex justify-center">
-        <Text className="font-chairdrobe-rounded-bold text-xl">HRC News</Text>
+        <Text className="font-chalet-comprime text-xl">HRC News</Text>
       </View>
     </TouchableOpacity>
   );

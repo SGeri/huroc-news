@@ -107,7 +107,7 @@ export default function Home() {
                   onPress={handleLoadMoreClick}
                   activeOpacity={0.8}
                 >
-                  <Text className="font-chairdrobe-rounded-bold text-center text-2xl text-white">
+                  <Text className="font-chalet-comprime text-center text-2xl text-white">
                     Több betöltése
                   </Text>
                 </TouchableOpacity>
