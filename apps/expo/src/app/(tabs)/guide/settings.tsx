@@ -6,7 +6,7 @@ export default function Settings() {
     <View className="h-full w-full flex-1 gap-2 bg-[#121212] p-8">
       <View className="flex flex-row items-center gap-2">
         <Icon name="gears" size={25} color="white" />
-        <Text className="font-chairdrobe-rounded-bold mb-3 text-3xl text-white">
+        <Text className="font-chalet-comprime mb-3 text-3xl text-white">
           Tudnivalók a beállításokról
         </Text>
       </View>
@@ -19,7 +19,7 @@ export default function Settings() {
 
       <View className="flex flex-row items-center gap-2">
         <Icon name="bell-o" size={25} color="white" />
-        <Text className="font-chairdrobe-rounded-bold mb-3 text-xl text-white">
+        <Text className="font-chalet-comprime mb-3 text-xl text-white">
           Értesítések
         </Text>
       </View>
@@ -32,7 +32,7 @@ export default function Settings() {
 
       <View className="flex flex-row items-center gap-2">
         <Icon name="eye" size={25} color="white" />
-        <Text className="font-chairdrobe-rounded-bold mb-3 text-xl text-white">
+        <Text className="font-chalet-comprime mb-3 text-xl text-white">
           Megjelenés
         </Text>
       </View>
@@ -44,7 +44,7 @@ export default function Settings() {
 
       <View className="flex flex-row items-center gap-2">
         <Icon name="lock" size={25} color="white" />
-        <Text className="font-chairdrobe-rounded-bold mb-3 text-xl text-white">
+        <Text className="font-chalet-comprime mb-3 text-xl text-white">
           Adatvédelem és biztonság
         </Text>
       </View>

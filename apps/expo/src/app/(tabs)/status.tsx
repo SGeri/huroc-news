@@ -8,7 +8,14 @@ import {
 } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import dayjs from "dayjs";
-import { RouterOutputs, api } from "~/utils/api";
+import { api, type RouterOutputs } from "~/utils/api";
+
+const categoryOrder = [
+  "GTA Online",
+  "Red Dead Online",
+  "Rockstar Games Launcher",
+  "Social Club",
+];
 
 const statusColors = {
   UP: "#00FF00",
@@ -72,7 +79,7 @@ export default function Page() {
         key={index}
         className="mb-5 w-full items-center justify-center rounded-md border border-white bg-black p-8"
       >
-        <Text className="font-chairdrobe-rounded-bold mb-5 text-3xl text-white">
+        <Text className="font-chalet-comprime mb-5 text-3xl text-white">
           Közlemény
         </Text>
         <Text className="font-noto-sans-regular text-center text-sm text-white">
@@ -99,10 +106,10 @@ export default function Page() {
         <>
           <View className="flex items-center px-10">
             <View className="my-10 flex items-center">
-              <Text className="font-chairdrobe-rounded-bold whi text-5xl text-white">
+              <Text className="font-chalet-comprime whi text-5xl text-white">
                 Rockstar Games
               </Text>
-              <Text className="font-chairdrobe-rounded-bold whi text-5xl text-white">
+              <Text className="font-chalet-comprime whi text-5xl text-white">
                 Service Status
               </Text>
             </View>
@@ -125,57 +132,61 @@ export default function Page() {
           </View>
           <View className="flex items-center px-10">
             {status &&
-              Object.keys(status).map((serviceName) => {
-                const service = status[serviceName];
+              Object.keys(status)
+                .sort(
+                  (a, b) => categoryOrder.indexOf(a) - categoryOrder.indexOf(b),
+                )
+                .map((serviceName) => {
+                  const service = status[serviceName];
 
-                if (!service) return;
+                  if (!service) return;
 
-                return (
-                  <View
-                    key={serviceName}
-                    className="mb-10 w-full rounded-md border border-white bg-black p-5"
-                  >
-                    <Text className="font-chairdrobe-rounded-bold mb-5 text-3xl text-white">
-                      {serviceName}
-                    </Text>
+                  return (
+                    <View
+                      key={serviceName}
+                      className="mb-10 w-full rounded-md border border-white bg-black p-5"
+                    >
+                      <Text className="font-chalet-comprime mb-5 text-3xl text-white">
+                        {serviceName}
+                      </Text>
 
-                    {Object.keys(service).map((platform) => {
-                      const status = service[platform];
+                      {Object.keys(service).map((platform) => {
+                        const status = service[platform];
 
-                      if (!status) return;
+                        if (!status) return;
 
-                      const text = statusTexts[status as Status];
-                      const color = statusColors[status as Status];
+                        const text = statusTexts[status as Status];
+                        const color = statusColors[status as Status];
 
-                      return (
-                        <View key={platform} className="mb-4">
-                          <View className="flex flex-row">
-                            <Icon
-                              style={{ margin: 5 }}
-                              name="circle"
-                              size={15}
-                              color={color}
-                            />
-                            <Text
-                              className="font-noto-sans-bold ml-1 text-lg text-white"
-                              style={{ color }}
-                            >
-                              {platform}
+                        return (
+                          <View key={platform} className="mb-4">
+                            <View className="flex flex-row">
+                              <Icon
+                                style={{ margin: 5 }}
+                                name="circle"
+                                size={15}
+                                color={color}
+                              />
+                              <Text
+                                className="font-noto-sans-bold ml-1 text-lg text-white"
+                                style={{ color }}
+                              >
+                                {platform}
+                              </Text>
+                            </View>
+                            <Text className="font-noto-sans-bold ml-7 text-lg text-white">
+                              {text}
                             </Text>
                           </View>
-                          <Text className="font-noto-sans-bold ml-7 text-lg text-white">
-                            {text}
-                          </Text>
-                        </View>
-                      );
-                    })}
-                  </View>
-                );
-              })}
+                        );
+                      })}
+                    </View>
+                  );
+                })}
           </View>
 
           <View className="flex items-baseline px-10">
-            <Text className="font-chairdrobe-rounded-bold mb-5 text-3xl text-white">
+            <Text className="font-chalet-comprime mb-5 text-3xl text-white">
               Mit jelent?
             </Text>
             <View className="mb-5">

@@ -59,7 +59,7 @@ export default function Settings() {
   return (
     <ScrollView className="bg-[#121212]">
       <View className="h-full w-full flex-1 gap-4 bg-[#121212] p-8">
-        <Text className="font-chairdrobe-rounded-bold text-3xl text-white">
+        <Text className="font-chalet-comprime text-3xl text-white">
           Beállítások
         </Text>
 

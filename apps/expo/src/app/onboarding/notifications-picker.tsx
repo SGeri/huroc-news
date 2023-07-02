@@ -38,7 +38,7 @@ export default function NotificationsPicker() {
 
       <ScrollView>
         <View className="h-full w-full flex-1 items-center bg-[#121212] p-8">
-          <Text className="font-chairdrobe-rounded-bold mb-3 text-center text-3xl text-white">
+          <Text className="font-chalet-comprime mb-3 text-center text-3xl text-white">
             Értesítések
           </Text>
           <Text className="font-noto-sans-regular mb-12 text-center text-base text-white">

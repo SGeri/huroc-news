@@ -13,7 +13,7 @@ export default function Welcome() {
 
       <View className="h-full w-full flex-1 bg-[#121212] py-10">
         <View className="w-full items-center justify-center p-8">
-          <Text className="font-chairdrobe-rounded-bold mb-3 text-center text-3xl text-white">
+          <Text className="font-chalet-comprime mb-3 text-center text-3xl text-white">
             Üdv a HRC News-ban!
           </Text>
           <Text className="font-noto-sans-regular mb-12 text-center text-base text-white">

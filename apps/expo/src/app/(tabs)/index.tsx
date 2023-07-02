@@ -107,7 +107,7 @@ export default function Home() {
                   onPress={handleLoadMoreClick}
                   activeOpacity={0.8}
                 >
-                  <Text className="font-chairdrobe-rounded-bold text-center text-2xl text-white">
+                  <Text className="font-chalet-comprime text-center text-2xl text-white">
                     Több betöltése
                   </Text>
                 </TouchableOpacity>
@@ -146,7 +146,7 @@ function Card({ title, image, category, timestamp, link }: CardProps) {
             {formatCategories(category).join(", ")}
             {" | "}
           </Text>
-          <Text className="font-noto-sans-regular text-sm text-gray-600">
+          <Text className="font-noto-sans-regular text-sm text-[#161616]">
             {dayjs(timestamp).format("YYYY. MMMM DD.")}
           </Text>
         </View>
