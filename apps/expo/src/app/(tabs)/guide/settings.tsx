@@ -24,7 +24,7 @@ export default function Settings() {
 
         <View className="flex flex-row items-center gap-2">
           <Icon name="bell-o" size={25} color="white" />
-          <Text className="font-chairdrobe-rounded-bold mb-3 text-xl text-white">
+          <Text className="font-chalet-comprime mb-3 text-xl text-white">
             Értesítések
           </Text>
         </View>
@@ -37,7 +37,7 @@ export default function Settings() {
 
         <View className="flex flex-row items-center gap-2">
           <Icon name="eye" size={25} color="white" />
-          <Text className="font-chairdrobe-rounded-bold mb-3 text-xl text-white">
+          <Text className="font-chalet-comprime mb-3 text-xl text-white">
             Megjelenés
           </Text>
         </View>
@@ -49,7 +49,7 @@ export default function Settings() {
 
         <View className="flex flex-row items-center gap-2">
           <Icon name="lock" size={25} color="white" />
-          <Text className="font-chairdrobe-rounded-bold mb-3 text-xl text-white">
+          <Text className="font-chalet-comprime mb-3 text-xl text-white">
             Adatvédelem és biztonság
           </Text>
         </View>
@@ -60,7 +60,7 @@ export default function Settings() {
 
         <View className="flex flex-row items-center gap-2">
           <Icon name="headphones" size={25} color="white" />
-          <Text className="font-chairdrobe-rounded-bold mb-3 text-xl text-white">
+          <Text className="font-chalet-comprime mb-3 text-xl text-white">
             Támogatás
           </Text>
         </View>
@@ -81,7 +81,7 @@ export default function Settings() {
 
         <View className="flex flex-row items-center gap-2">
           <Icon name="info" size={25} color="white" />
-          <Text className="font-chairdrobe-rounded-bold mb-3 text-xl text-white">
+          <Text className="font-chalet-comprime mb-3 text-xl text-white">
             Az alkalmazásról
           </Text>
         </View>
