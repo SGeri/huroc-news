@@ -10,13 +10,13 @@ export default function Feed() {
       <Text className="font-chalet-comprime mb-3 text-3xl text-white">
         Tudnivalók a hírfolyamról
       </Text>
-      <Text className="font-noto-sans-regular mb-2 text-white">
+      <Text className="font-noto-sans-regular mb-5 text-white">
         A hírfolyam az a hely, ahol egy helyen láthatod az összes hírt. A
         legfelső kártyán az éppen kiemelt, legfontosabb hírt tekintheted meg,
         lejjebb görgetve pedig böngészhetsz a további hírek között.
       </Text>
 
-      <Text className="font-noto-sans-regular mb-2 text-white">
+      <Text className="font-noto-sans-regular mb-5 text-white">
         A kártyákra kattintva weboldalunkra navigálhatsz, közvetlenül a keresett
         hírre.
       </Text>

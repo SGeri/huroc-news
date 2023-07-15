@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import {
   ActivityIndicator,
   Image,
@@ -9,12 +9,16 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import Icon from "react-native-vector-icons/AntDesign";
 import dayjs from "dayjs";
 import { type Category } from "@packages/db";
 import { formatCategories } from "@packages/lib";
 import { api } from "~/utils/api";
+import Button from "~/components/Button";
 
 export default function Home() {
+  const scrollRef = useRef<ScrollView>();
+
   const [take, setTake] = useState(5);
   const {
     data,
@@ -36,87 +40,135 @@ export default function Home() {
     setTake((prev) => prev + 5);
   };
 
+  const handleGoToTopClick = () => {
+    if (!scrollRef.current) return;
+
+    // @ts-ignore
+    scrollRef.current.scrollTo({
+      y: 0,
+      animated: true,
+    });
+  };
+
+  const handleMoreNewsClick = () => {
+    Linking.openURL("https://huroc.com/hrc-news/").catch((err) =>
+      console.error(err),
+    );
+  };
+
   return (
-    <ScrollView
-      className="bg-[#121212]"
-      refreshControl={
-        <RefreshControl refreshing={loading} onRefresh={refetch} />
-      }
-    >
-      {loading ? (
-        <View className="h-full w-full p-10">
-          <ActivityIndicator size="large" color="#ffa500" />
-        </View>
-      ) : (
-        <>
-          {pinned && (
-            <TouchableOpacity
-              className="mb-4 h-96 w-full border-b border-[#ffffff80] bg-black"
-              activeOpacity={0.8}
-              onPress={() =>
-                Linking.openURL(pinned.link).catch((err) => console.error(err))
-              }
-            >
-              <Image
-                className="h-[60%] w-full"
-                source={{ uri: pinned.image }}
-                alt={pinned.title}
-              />
-              <View className="flex h-[40%] flex-col justify-center p-8">
-                <View className="flex flex-row">
-                  <Text className="font-noto-sans-regular text-sm text-white">
-                    {formatCategories(pinned.category).join(", ")}
-                    {" | "}
-                  </Text>
-                  <Text className="font-noto-sans-regular text-sm text-[#808080]">
-                    {dayjs(pinned.createdAt).format("YYYY. MMMM DD.")}
+    <>
+      <TouchableOpacity
+        className="absolute bottom-6 right-6 z-50 flex h-12 w-12 items-center justify-center rounded-md bg-gray-600"
+        activeOpacity={0.8}
+        onPress={handleGoToTopClick}
+      >
+        <Icon name="arrowup" size={28} color="#fff" />
+      </TouchableOpacity>
+
+      <ScrollView
+        // @ts-ignore
+        ref={scrollRef}
+        className="bg-[#121212]"
+        refreshControl={
+          <RefreshControl refreshing={loading} onRefresh={refetch} />
+        }
+      >
+        {loading ? (
+          <View className="h-full w-full p-10">
+            <ActivityIndicator size="large" color="#ffa500" />
+          </View>
+        ) : (
+          <>
+            {pinned && (
+              <TouchableOpacity
+                className="mb-4 h-96 w-full border-b border-[#ffffff80] bg-black"
+                activeOpacity={0.8}
+                onPress={() =>
+                  Linking.openURL(pinned.link).catch((err) =>
+                    console.error(err),
+                  )
+                }
+              >
+                <Image
+                  className="h-[60%] w-full"
+                  source={{ uri: pinned.image }}
+                  alt={pinned.title}
+                />
+                <View className="flex h-[40%] flex-col justify-center p-8">
+                  <View className="flex flex-row">
+                    <Text className="font-noto-sans-regular text-sm text-white">
+                      {formatCategories(pinned.category).join(", ")}
+                      {" | "}
+                    </Text>
+                    <Text className="font-noto-sans-regular text-sm text-[#808080]">
+                      {dayjs(pinned.createdAt).format("YYYY. MMMM DD.")}
+                    </Text>
+                  </View>
+                  <Text className="font-noto-sans-bold text-xl text-white">
+                    {pinned.title}
                   </Text>
                 </View>
-                <Text className="font-noto-sans-bold text-xl text-white">
-                  {pinned.title}
-                </Text>
-              </View>
-            </TouchableOpacity>
-          )}
-          <View className="p-8">
-            {posts &&
-              posts.length > 0 &&
-              posts.map((post, index) => {
-                if (post.pinned) return null;
-
-                return (
-                  <Card
-                    key={index}
-                    title={post.title}
-                    image={post.image}
-                    category={post.category}
-                    timestamp={post.createdAt}
-                    link={post.link}
-                  />
-                );
-              })}
-
-            {total != (posts || []).length && (
-              <View className="flex flex-1 flex-col items-center justify-center gap-4">
-                {!loading && fetching && (
-                  <ActivityIndicator size="large" color="#ffa500" />
-                )}
-
-                <TouchableOpacity
-                  className="h-10 w-full rounded-md border border-white bg-black p-1"
-                  onPress={handleLoadMoreClick}
-                  activeOpacity={0.8}
-                >
-                  <Text className="font-chalet-comprime text-center text-2xl text-white">
-                    Több betöltése
-                  </Text>
-                </TouchableOpacity>
-              </View>
+              </TouchableOpacity>
             )}
-          </View>
-        </>
-      )}
-    </ScrollView>
+            <View className="p-8">
+              {posts &&
+                posts.length > 0 &&
+                posts.map((post, index) => {
+                  if (post.pinned) return null;
+
+                  return (
+                    <Card
+                      key={index}
+                      title={post.title}
+                      image={post.image}
+                      category={post.category}
+                      timestamp={post.createdAt}
+                      link={post.link}
+                    />
+                  );
+                })}
+
+              {total != (posts || []).length && (
+                <>
+                  {!loading && fetching && (
+                    <ActivityIndicator
+                      size="large"
+                      color="#ffa500"
+                      style={{ marginBottom: 20 }}
+                    />
+                  )}
+
+                  <Button
+                    width="100%"
+                    height={60}
+                    onPress={handleLoadMoreClick}
+                  >
+                    Több betöltése
+                  </Button>
+                </>
+              )}
+
+              {posts && total === posts.length && (
+                <>
+                  <Text className="font-noto-sans-bold text-m mb-8 mt-4 text-center text-white">
+                    Még több hírt szeretnél látni? Látogass el weboldalunkra
+                    további tartalmakért!
+                  </Text>
+                  <Button
+                    width="100%"
+                    height={60}
+                    onPress={handleMoreNewsClick}
+                  >
+                    További hírek
+                  </Button>
+                </>
+              )}
+            </View>
+          </>
+        )}
+      </ScrollView>
+    </>
   );
 }
 

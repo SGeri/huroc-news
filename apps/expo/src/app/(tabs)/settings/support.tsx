@@ -63,6 +63,7 @@ function Category({ icon, text, info, onPress }: CategoryProps) {
   return (
     <>
       <TouchableOpacity
+        activeOpacity={0.8}
         className="m-1 flex w-full flex-row items-center gap-1"
         onPress={onPress}
       >

@@ -35,18 +35,6 @@ export default function Settings() {
       </Text>
 
       <View className="flex flex-row items-center gap-2">
-        <Icon name="eye" size={25} color="white" />
-        <Text className="font-chalet-comprime mb-3 pt-3 text-xl text-white">
-          Megjelenés
-        </Text>
-      </View>
-
-      <Text className="font-noto-sans-regular mb-3 text-white">
-        Beállíthatod, hogy sötét vagy világos témában jelenjen meg az
-        alkalmazás.
-      </Text>
-
-      <View className="flex flex-row items-center gap-2">
         <Icon name="lock" size={25} color="white" />
         <Text className="font-chalet-comprime mb-3 pt-3 text-xl text-white">
           Adatvédelem és biztonság
@@ -64,7 +52,7 @@ export default function Settings() {
         </Text>
       </View>
 
-      <Text className="font-noto-sans-regular mb-3 text-white">
+      <Text className="font-noto-sans-regular mb-5 text-white">
         Ha segítségre van szükséged az alkalmazás használatával vagy a Rockstar
         Games játékaival és szolgáltatásaival kapcsolatban, ezen az oldalon
         kaphatsz támogatást csapatunktól.
@@ -85,7 +73,7 @@ export default function Settings() {
         </Text>
       </View>
 
-      <Text className="font-noto-sans-regular mb-3 text-white">
+      <Text className="font-noto-sans-regular mb-5 text-white">
         Ezen az oldalon van lehetőséged többet megtudni a HRC News alkalmazásról
         és a Hungarian Rockstar Club működéséről.
       </Text>

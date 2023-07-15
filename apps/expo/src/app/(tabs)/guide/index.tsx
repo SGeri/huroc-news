@@ -13,7 +13,6 @@ const guideOptions = [
     icon: "wifi",
     text: "Service Status",
     route: "guide/service-status",
-    info: "Új funkció",
   },
   {
     icon: "sliders",
@@ -41,7 +40,6 @@ export default function Guide() {
           key={index}
           icon={option.icon}
           text={option.text}
-          info={option.info}
           onPress={() => router.push(option.route)}
         />
       ))}
@@ -52,14 +50,14 @@ export default function Guide() {
 type CategoryProps = {
   icon: string;
   text: string;
-  info?: string;
   onPress: () => void;
 };
 
-function Category({ icon, text, info, onPress }: CategoryProps) {
+function Category({ icon, text, onPress }: CategoryProps) {
   return (
     <>
       <TouchableOpacity
+        activeOpacity={0.8}
         className="m-1 flex w-full flex-row items-center"
         onPress={onPress}
       >
@@ -68,8 +66,6 @@ function Category({ icon, text, info, onPress }: CategoryProps) {
         </View>
 
         <Text className="font-noto-sans-bold text-white">{text}</Text>
-
-        {info && <Infobox className="m-2" text={info} />}
 
         <Icon
           style={{ position: "absolute", right: "5%" }}

@@ -7,6 +7,7 @@ import {
   Container,
   Loader,
   ScrollArea,
+  Stack,
   Text,
   Title,
 } from "@mantine/core";
@@ -22,7 +23,7 @@ const Home: NextPage = () => {
   const [take, setTake] = useState(5);
   const {
     data,
-    isLoading: getPostsLoading,
+    isFetching: getPostsLoading,
     refetch,
   } = api.posts.getPosts.useQuery(
     {
@@ -38,18 +39,6 @@ const Home: NextPage = () => {
   const createPost = api.posts.createPost.useMutation();
   const updatePost = api.posts.updatePost.useMutation();
   const removePost = api.posts.removePost.useMutation();
-
-  const handleScrollPositionChange = ({ x }: { x: number }) => {
-    if (!ref.current) return;
-
-    const scrollX = x + ref.current.clientWidth;
-    const width = ref.current.scrollWidth;
-
-    if (scrollX >= width && total != posts?.length) {
-      // improve by adjusting ending offset
-      setTake((prevTake) => prevTake + 3);
-    }
-  };
 
   const handleNewClick = () => {
     setPostToEdit(null);
@@ -120,12 +109,6 @@ const Home: NextPage = () => {
         </SignOutButton>
       </Center>
 
-      {getPostsLoading && (
-        <Center>
-          <Loader />
-        </Center>
-      )}
-
       {opened && (
         <Form
           opened={opened}
@@ -136,30 +119,39 @@ const Home: NextPage = () => {
         />
       )}
 
-      <ScrollArea
-        w={900}
-        h={480}
-        onScrollPositionChange={handleScrollPositionChange}
-        viewportRef={ref}
-      >
-        <div className="flex flex-row gap-10">
+      <ScrollArea viewportRef={ref}>
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-10 xl:grid-cols-3 xl:gap-12">
           {(posts?.length ? posts : []).map((post, index) => (
-            <Card
-              key={index}
-              image={post.image}
-              category={post.category}
-              timestamp={post.createdAt}
-              title={post.title}
-              onEditClick={() => handleEditClick(post.id)}
-              onDeleteClick={() => handleRemoveClick(post.id)}
-            />
+            <div key={index} className="flex min-w-fit justify-center">
+              <Card
+                image={post.image}
+                category={post.category}
+                timestamp={post.createdAt}
+                title={post.title}
+                onEditClick={() => handleEditClick(post.id)}
+                onDeleteClick={() => handleRemoveClick(post.id)}
+              />
+            </div>
           ))}
-          {!getPostsLoading && total != posts?.length && (
+        </div>
+
+        <Stack align="center" py="md" spacing="md" my="lg">
+          {getPostsLoading && (
             <Center>
               <Loader />
             </Center>
           )}
-        </div>
+
+          {!getPostsLoading && total !== posts?.length && (
+            <Button
+              className="w-36"
+              onClick={() => setTake((prevTake) => prevTake + 3)}
+              variant="outline"
+            >
+              MÉG MÉG MÉG
+            </Button>
+          )}
+        </Stack>
       </ScrollArea>
     </Container>
   );

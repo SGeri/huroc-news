@@ -5,18 +5,18 @@ import Infobox from "~/components/Infobox";
 
 const documents = [
   {
-    icon: "lock",
+    icon: "info",
     text: "Használati Feltételek",
     link: "https://huroc.com/legal/terms-of-use",
   },
   {
-    icon: "lock",
+    icon: "info",
     text: "Szolgáltatási Feltételek",
     link: "https://huroc.com/legal",
   },
   {
-    icon: "lock",
-    text: "Adatkezelési Feltételek",
+    icon: "info",
+    text: "Adatkezelési Tájékoztató",
     link: "https://huroc.com/privacy",
   },
 ];
@@ -80,6 +80,7 @@ function Category({ icon, text, info, onPress }: CategoryProps) {
   return (
     <>
       <TouchableOpacity
+        activeOpacity={0.8}
         className="m-1 flex w-full flex-row items-center"
         onPress={onPress}
       >

@@ -44,6 +44,7 @@ export const postsRouter = createRouter({
         category: z.array(z.enum(categoryKeys)).min(1),
         image: z.string().min(1),
         link: z.string().min(1),
+        createdAt: z.date(),
         pinned: z.boolean().optional(),
       }),
     )
@@ -55,6 +56,7 @@ export const postsRouter = createRouter({
           image: input.image,
           link: input.link,
           pinned: input.pinned,
+          createdAt: input.createdAt,
         },
       });
 
@@ -80,6 +82,7 @@ export const postsRouter = createRouter({
           image: z.string().min(1),
           link: z.string().min(1),
           pinned: z.boolean().optional(),
+          createdAt: z.date().optional(),
         }),
       }),
     )
@@ -96,6 +99,7 @@ export const postsRouter = createRouter({
           image: post.image,
           link: post.link,
           pinned: post.pinned,
+          createdAt: post.createdAt,
         },
       });
 

@@ -1,13 +1,18 @@
 import { useState } from "react";
-import { Image, ScrollView, Text, View } from "react-native";
+import {
+  Image,
+  Linking,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import Toast from "react-native-toast-message";
 import Button from "~/components/Button";
 import Checkbox from "~/components/Checkbox";
 import ProgressBar from "~/components/ProgressBar";
 import Welcome6Image from "~/images/welcome6.png";
 import useOnboarding, { type Document } from "~/lib/useOnboarding";
-
-// We should reconsider the use of the image
 
 export default function Documents() {
   const { progress, next, documents } = useOnboarding(5);
@@ -57,6 +62,7 @@ export default function Documents() {
               <Document
                 key={document.value}
                 text={document.display}
+                link={document.link}
                 checked={isDocumentAccepted(document.value)}
                 onPress={() => toggleDocument(document.value)}
               />
@@ -81,16 +87,20 @@ export default function Documents() {
 
 type DocumentProps = {
   text: string;
+  link: string;
   checked: boolean;
   onPress: () => void;
 };
 
-const Document = ({ text, checked, onPress }: DocumentProps) => (
-  <>
+const Document = ({ text, link, checked, onPress }: DocumentProps) => (
+  <TouchableOpacity
+    className="w-full items-start justify-start"
+    onPress={() => Linking.openURL(link)}
+  >
     <Checkbox text={text} checked={checked} onPress={onPress} />
 
     <Separator />
-  </>
+  </TouchableOpacity>
 );
 
 const Separator = () => <View className="my-2 h-[2] w-full bg-white" />;

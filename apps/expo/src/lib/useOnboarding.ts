@@ -54,14 +54,17 @@ const documents = [
   {
     display: "Használati Feltételeink",
     value: "TOU",
+    link: "https://huroc.com/legal/terms-of-use",
   },
   {
     display: "Szolgáltatási Feltételeink",
     value: "TOS",
+    link: "https://huroc.com/legal",
   },
   {
     display: "Adatkezelési Tájékoztatónk",
     value: "TOP",
+    link: "https://huroc.com/privacy",
   },
 ] as const;
 

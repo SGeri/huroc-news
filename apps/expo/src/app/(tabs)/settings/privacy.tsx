@@ -40,15 +40,11 @@ export default function Privacy() {
 
         <View className="mb-10">
           <Category
-            icon="info"
+            icon="lock"
             text="Adatkezelési Tájékoztató"
             onPress={() => router.push("https://huroc.com/privacy")}
           />
         </View>
-
-        <Button width="100%" height={60} onPress={() => router.push("/")}>
-          Megtekintés interneten
-        </Button>
       </View>
     </ScrollView>
   );
@@ -65,6 +61,7 @@ function Category({ icon, text, info, onPress }: CategoryProps) {
   return (
     <>
       <TouchableOpacity
+        activeOpacity={0.8}
         className="m-1 flex w-full flex-row items-center"
         onPress={onPress}
       >

@@ -86,7 +86,7 @@ export default function Notifications() {
           <ActivityIndicator size="large" color="#ffa500" />
         )}
 
-        <View className="mb-2">
+        <View className="mb-8">
           {notificationOptions.map((option) => (
             <Service
               key={option.value}

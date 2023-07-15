@@ -19,6 +19,7 @@ export default function Button({
 }: ButtonProps) {
   return (
     <TouchableOpacity
+      activeOpacity={0.8}
       className={clsx(
         className,
         "flex items-center justify-center rounded-md border border-white bg-black p-1",
@@ -26,7 +27,7 @@ export default function Button({
       style={{ width, height }}
       onPress={onPress}
     >
-      <Text className="font-chalet-comprime text-center text-2xl text-white">
+      <Text className="font-bebas-neue text-center text-xl text-white">
         {children}
       </Text>
     </TouchableOpacity>

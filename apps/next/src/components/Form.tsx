@@ -7,6 +7,7 @@ import {
   MultiSelect,
   TextInput,
 } from "@mantine/core";
+import { DateInput } from "@mantine/dates";
 import { isNotEmpty, useForm } from "@mantine/form";
 
 export type FormProps = {
@@ -23,6 +24,7 @@ export type FormValues = {
   image: string;
   link: string;
   pinned: boolean;
+  createdAt: Date;
 };
 
 const categories = [
@@ -42,6 +44,7 @@ const initialValues = {
   image: "",
   link: "",
   pinned: true,
+  createdAt: new Date(),
 } satisfies FormValues;
 
 export default function Form({
@@ -59,6 +62,7 @@ export default function Form({
       category: isNotEmpty("This field is required"),
       image: isNotEmpty("This field is required"),
       link: isNotEmpty("This field is required"),
+      createdAt: isNotEmpty("This field is required"),
     },
   });
 
@@ -91,9 +95,16 @@ export default function Form({
         <MultiSelect
           data={categories}
           label="Pick the appropriate categories"
+          required
           placeholder="Category"
           mb="sm"
           {...form.getInputProps("category")}
+        />
+        <DateInput
+          label="Published at"
+          required
+          mb="sm"
+          {...form.getInputProps("createdAt")}
         />
         <Checkbox
           label="Pinned"

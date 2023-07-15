@@ -77,8 +77,9 @@ export default function Settings() {
         <View className="m-5 gap-[0.5]">
           {socials.map((social) => (
             <TouchableOpacity
+              activeOpacity={0.8}
               key={social.text}
-              className="flex flex-row items-center gap-2"
+              className="flex w-40 flex-row items-center gap-2"
             >
               <View className="h-8 w-8 items-center justify-center rounded-md border border-white bg-black">
                 <Icon name={social.icon} size={18} color="white" />
@@ -92,7 +93,7 @@ export default function Settings() {
         </View>
 
         <View className="mt-6 flex items-center justify-center">
-          <View className="h-20 w-72 items-center justify-center rounded-md border border-white bg-black text-center">
+          <View className="h-16 w-full items-center justify-center rounded-md border border-white bg-black text-center">
             <Text className="font-noto-sans-regular text-xs text-white">
               Copyright 2023 | Hungarian Rockstar Club
             </Text>
@@ -116,6 +117,7 @@ function Category({ icon, text, onPress }: CategoryProps) {
   return (
     <>
       <TouchableOpacity
+        activeOpacity={0.8}
         className="m-1 flex w-full flex-row items-center"
         onPress={onPress}
       >
