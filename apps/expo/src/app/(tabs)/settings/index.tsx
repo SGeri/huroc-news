@@ -80,6 +80,7 @@ export default function Settings() {
               activeOpacity={0.8}
               key={social.text}
               className="flex w-40 flex-row items-center gap-2"
+              onPress={() => router.push(social.link)}
             >
               <View className="h-8 w-8 items-center justify-center rounded-md border border-white bg-black">
                 <Icon name={social.icon} size={18} color="white" />

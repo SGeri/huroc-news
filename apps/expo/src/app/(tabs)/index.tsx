@@ -59,7 +59,7 @@ export default function Home() {
   return (
     <>
       <TouchableOpacity
-        className="absolute bottom-6 right-6 z-50 flex h-12 w-12 items-center justify-center rounded-md bg-gray-600"
+        className="absolute bottom-6 right-6 z-50 flex h-10 w-10 items-center justify-center rounded-md bg-black opacity-70"
         activeOpacity={0.8}
         onPress={handleGoToTopClick}
       >
@@ -151,7 +151,7 @@ export default function Home() {
 
               {posts && total === posts.length && (
                 <>
-                  <Text className="font-noto-sans-bold text-m mb-8 mt-4 text-center text-white">
+                  <Text className="font-noto-sans-bold mb-8 mt-4 text-center text-lg text-white">
                     Még több hírt szeretnél látni? Látogass el weboldalunkra
                     további tartalmakért!
                   </Text>

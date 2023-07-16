@@ -22,7 +22,7 @@ export default function Feed() {
       </Text>
 
       <Text className="font-noto-sans-regular mb-5 text-white">
-        Érdemes gyakran figyelned a hírfolyamot, hiszen az katuális Heti
+        Érdemes gyakran figyelned a hírfolyamot, hiszen az aktuális Heti
         Frissítések mellett itt jelennek meg a hivatalos bejelentések is, de
         egyéb érdekességeket és cikkeket is találhatsz.
       </Text>

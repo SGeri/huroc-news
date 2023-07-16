@@ -34,7 +34,7 @@ export default function Privacy() {
 
         <Text className="font-noto-sans-regular mb-5 text-white">
           Ismerd meg adatkezelésünk módját. Adataid védelme kiemelt számunkra,
-          ezért semmilyen személyes adatodat nem osztjuk meg harmadik féllel a
+          ezért semmilyen személyes adatokat nem osztunk meg harmadik féllel a
           hozzájárulásod nélkül.
         </Text>
 

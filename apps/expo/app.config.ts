@@ -16,16 +16,23 @@ const defineConfig = (): ExpoConfig => ({
   owner: "hurocdev",
   assetBundlePatterns: ["**/*"],
   ios: {
+    icon: "./assets/logo_filled.png",
     supportsTablet: true,
     bundleIdentifier: "news.huroc.com",
+    googleServicesFile: "./google-services.json",
   },
   android: {
+    icon: "./assets/logo_filled96.png",
     package: "news.huroc.com",
     adaptiveIcon: {
       foregroundImage: "./assets/logo_filled.png",
       backgroundColor: "#1F104A",
     },
     googleServicesFile: "./google-services.json",
+  },
+  notification: {
+    icon: "./assets/logo_filled96.png",
+    iosDisplayInForeground: true,
   },
   extra: {
     eas: {

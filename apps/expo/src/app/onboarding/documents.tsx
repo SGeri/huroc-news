@@ -22,7 +22,7 @@ export default function Documents() {
   const handleNext = () => {
     if (acceptedDocuments.length !== documents.length)
       return Toast.show({
-        type: "error",
+        type: "warn",
         text1: "Fontos dokumentumok",
         text2: "Kérjük, fogadd el az összes dokumentumot!",
       });

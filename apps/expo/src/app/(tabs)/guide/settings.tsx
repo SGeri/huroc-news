@@ -29,8 +29,8 @@ export default function Settings() {
       </View>
 
       <Text className="font-noto-sans-regular mb-3 text-white">
-        Bármikor módosíthatod, milyen értesítéseket szeretnél kapni. A
-        legteljesebb élmény érdekében ajánljuk, hogy minden értesítés kategórát
+        Bármikor módosíthatod, hogy milyen értesítéseket szeretnél kapni. A
+        legteljesebb élmény érdekében ajánljuk, hogy minden értesítés kategóriát
         hagyj bekapcsolt állapotban.
       </Text>
 
@@ -87,7 +87,7 @@ export default function Settings() {
         Beállítások megtekintése
       </Button>
 
-      <View className="mb-20" />
+      <View className="mb-16" />
     </ScrollView>
   );
 }

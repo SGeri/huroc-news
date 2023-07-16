@@ -52,17 +52,17 @@ const notificationOptions = [
 
 const documents = [
   {
-    display: "Használati Feltételeink",
+    display: "Használati Feltételek",
     value: "TOU",
     link: "https://huroc.com/legal/terms-of-use",
   },
   {
-    display: "Szolgáltatási Feltételeink",
+    display: "Szolgáltatási Feltételek",
     value: "TOS",
     link: "https://huroc.com/legal",
   },
   {
-    display: "Adatkezelési Tájékoztatónk",
+    display: "Adatkezelési Tájékoztató",
     value: "TOP",
     link: "https://huroc.com/privacy",
   },
@@ -118,8 +118,8 @@ export default function useOnboarding(pageIndex: number) {
 
       Toast.show({
         type: "success",
-        text1: "Onboarding",
-        text2: "Az onboarding sikeresen befejeződött!",
+        text1: "Szinkronizálás",
+        text2: "A szinkronizálás sikeresen befejeződött!",
       });
     } catch (e) {
       Toast.show({

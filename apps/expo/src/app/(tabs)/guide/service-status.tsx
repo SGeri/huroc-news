@@ -53,18 +53,18 @@ export default function ServiceStatus() {
       </Text>
 
       <View className="flex items-baseline">
-        <Text className="font-chalet-comprime mb-5 text-3xl text-white">
+        <Text className="font-chalet-comprime mb-5 text-2xl text-white">
           Mit jelent?
         </Text>
         <View className="mb-5">
-          <View className="flex flex-row">
+          <View className="flex flex-row items-center">
             <Icon
               style={{ margin: 5 }}
               name="circle"
               size={15}
               color="#00FF00"
             />
-            <Text className="font-noto-sans-bold ml-1 text-lg text-[#00FF00]">
+            <Text className="font-noto-sans-bold text-md ml-1 text-[#00FF00]">
               Elérhető / UP
             </Text>
           </View>
@@ -73,14 +73,14 @@ export default function ServiceStatus() {
           </Text>
         </View>
         <View className="mb-5">
-          <View className="flex flex-row">
+          <View className="flex flex-row items-center">
             <Icon
               style={{ margin: 5 }}
               name="circle"
               size={15}
               color="#FFA500"
             />
-            <Text className="font-noto-sans-bold ml-1 text-lg text-[#FFA500]">
+            <Text className="font-noto-sans-bold text-md ml-1 text-[#FFA500]">
               Korlátozott / Limited
             </Text>
           </View>
@@ -95,14 +95,14 @@ export default function ServiceStatus() {
           </Text>
         </View>
         <View className="mb-6">
-          <View className="flex flex-row">
+          <View className="flex flex-row items-center">
             <Icon
               style={{ margin: 5 }}
               name="circle"
               size={15}
               color="#FF0000"
             />
-            <Text className="font-noto-sans-bold ml-1 text-lg text-[#FF0000]">
+            <Text className="font-noto-sans-bold text-md ml-1 text-[#FF0000]">
               Nem elérhető / Down
             </Text>
           </View>
@@ -117,7 +117,7 @@ export default function ServiceStatus() {
         Service Status megtekintése
       </Button>
 
-      <View className="h-12" />
+      <View className="h-16" />
     </ScrollView>
   );
 }

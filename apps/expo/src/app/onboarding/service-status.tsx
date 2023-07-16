@@ -18,8 +18,8 @@ export default function ServiceStatus() {
           </Text>
           <Text className="font-noto-sans-regular mb-12 text-center text-base text-white">
             Ha szeretnéd tudni a GTA Online, Red Dead Online, Rockstar Games
-            Launcher vagy Social Club szervereinek állapotát, csak keresd a Wifi
-            ikont az alkalmazásban.
+            Launcher vagy Social Club szervereinek állapotát, csak keresd a
+            Wi-Fi ikont az alkalmazásban.
           </Text>
 
           <Button width={100} height={40} onPress={next}>

@@ -51,9 +51,9 @@ export default function About() {
         </View>
 
         <Text className="font-noto-sans-regular mb-5 text-white">
-          A HRC news Használati Feltételeit, Szolgáltatási Feltételeinket és
-          Adatakezelési Tájékoztatónkat megtekintheted az alábbi oldalakon
-          keresztül.
+          A HRC News Használati Feltételeit, a Hungarian Rockstar Club
+          Szolgáltatási Feltételeit és Adatkezelési Tájékoztatóját a lenti
+          gombokra kattintva tekintheted meg.
         </Text>
 
         {documents.map((option, index) => (

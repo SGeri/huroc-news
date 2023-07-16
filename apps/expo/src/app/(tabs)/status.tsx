@@ -30,6 +30,7 @@ const statusTexts = {
 } as const;
 
 const translatedServiceNames = {
+  "Xbox Series X/S": "Xbox Series X|S",
   "All Features": "Minden szolgáltatás",
   Authentication: "Hitelesítés / Authentication",
   Store: "Bolt / Store",

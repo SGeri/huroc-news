@@ -19,6 +19,14 @@ export const handleAPIError = (err: unknown) => {
 
     console.error("TRPC API Error", trpcError);
 
+    if (trpcError.message === "Network request failed") {
+      return Toast.show({
+        type: "error",
+        text1: "Csatlakozási hiba",
+        text2: "Sikertelen csatlakozás! Ellenőrizd az internetkapcsolatodat!",
+      });
+    }
+
     return Toast.show({
       type: "error",
       text1: "Hiba történt",
