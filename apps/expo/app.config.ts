@@ -4,7 +4,7 @@ const defineConfig = (): ExpoConfig => ({
   name: "HRC News",
   slug: "huroc-news",
   scheme: "hrcnews",
-  version: "1.0.0",
+  version: "1.0.1",
   orientation: "portrait",
   icon: "./assets/logo_filled.png",
   userInterfaceStyle: "light",
@@ -19,7 +19,6 @@ const defineConfig = (): ExpoConfig => ({
     icon: "./assets/logo_filled.png",
     supportsTablet: true,
     bundleIdentifier: "news.huroc.com",
-    googleServicesFile: "./google-services.json",
   },
   android: {
     icon: "./assets/logo_filled96.png",
@@ -31,7 +30,7 @@ const defineConfig = (): ExpoConfig => ({
     googleServicesFile: "./google-services.json",
   },
   notification: {
-    icon: "./assets/logo_filled96.png",
+    icon: "./assets/logo_trans.png",
     iosDisplayInForeground: true,
   },
   extra: {

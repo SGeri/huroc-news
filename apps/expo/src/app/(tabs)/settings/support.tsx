@@ -1,7 +1,6 @@
-import { Text, TouchableOpacity, View } from "react-native";
+import { Linking, Text, TouchableOpacity, View } from "react-native";
 import IconFA from "react-native-vector-icons/FontAwesome";
 import Icon from "react-native-vector-icons/Fontisto";
-import { useRouter } from "expo-router";
 import Infobox from "~/components/Infobox";
 
 const supportOptions = [
@@ -20,8 +19,6 @@ const supportOptions = [
 ];
 
 export default function Support() {
-  const router = useRouter();
-
   return (
     <View className="h-full w-full flex-1 bg-[#121212] p-8">
       <Text className="font-chalet-comprime mb-3 text-3xl text-white">
@@ -39,7 +36,7 @@ export default function Support() {
             icon={option.icon}
             text={option.text}
             info={option.info}
-            onPress={() => router.push(option.link)}
+            onPress={() => Linking.openURL(option.link)}
           />
         ))}
       </View>

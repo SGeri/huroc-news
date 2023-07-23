@@ -67,7 +67,7 @@ export default function RootLayout() {
           <Stack.Screen name="onboarding" />
         </Stack>
 
-        <StatusBar />
+        <StatusBar style="light" />
       </SafeAreaProvider>
     </TRPCProvider>
   );

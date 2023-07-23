@@ -124,10 +124,10 @@ export default function useOnboarding(pageIndex: number) {
     } catch (e) {
       Toast.show({
         type: "error",
-        text1: "Onboarding",
-        text2: "Az onboarding nem sikerült! " + String(e),
+        text1: "Szinkronizálás",
+        text2:
+          "A szinkronizálás sikertelen volt! Engedélyezd az értesítéseket!",
       });
-      Alert.alert("Hiba", "Az onboarding nem sikerült! " + String(e));
       console.log("error", String(e));
     }
 

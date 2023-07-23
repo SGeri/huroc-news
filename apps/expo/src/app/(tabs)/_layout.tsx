@@ -13,6 +13,7 @@ export default function RootLayout() {
       screenOptions={{
         headerShown: true,
         headerTitleAlign: "left",
+        headerStyle: { backgroundColor: "black" },
         headerTitle: () => <HeaderTitle newsLink={NEWS_LINK} />,
         headerRight: () => (
           <HeaderRight
@@ -25,13 +26,19 @@ export default function RootLayout() {
         tabBarShowLabel: false,
         tabBarActiveTintColor: "#ffa500",
         tabBarInactiveTintColor: "#000",
+        tabBarActiveBackgroundColor: "black",
+        tabBarInactiveBackgroundColor: "black",
       }}
     >
       <Tabs.Screen
         name="index"
         options={{
           tabBarIcon: ({ focused }) => (
-            <Icon name="globe" size={25} color={focused ? "#ffa500" : "#000"} />
+            <Icon
+              name="globe"
+              size={25}
+              color={focused ? "#ffa500" : "white"}
+            />
           ),
         }}
       />
@@ -39,7 +46,7 @@ export default function RootLayout() {
         name="status"
         options={{
           tabBarIcon: ({ focused }) => (
-            <Icon name="wifi" size={25} color={focused ? "#ffa500" : "#000"} />
+            <Icon name="wifi" size={25} color={focused ? "#ffa500" : "white"} />
           ),
         }}
       />
@@ -50,7 +57,7 @@ export default function RootLayout() {
             <Icon
               name="file-text-o"
               size={25}
-              color={focused ? "#ffa500" : "#000"}
+              color={focused ? "#ffa500" : "white"}
             />
           ),
         }}
@@ -62,7 +69,7 @@ export default function RootLayout() {
             <Icon
               name="sliders"
               size={25}
-              color={focused ? "#ffa500" : "#000"}
+              color={focused ? "#ffa500" : "white"}
             />
           ),
         }}

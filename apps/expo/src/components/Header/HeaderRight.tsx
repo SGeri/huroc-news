@@ -21,8 +21,8 @@ export default function HeaderRight({
       <IconFontisto
         name="messenger"
         size={25}
-        color="#000"
-        style={{ marginRight: 4 }} // classNames dont work
+        color="white"
+        style={{ marginRight: 4 }}
         onPress={() => {
           Linking.openURL(contactLink);
         }}

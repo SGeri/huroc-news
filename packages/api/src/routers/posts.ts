@@ -63,7 +63,7 @@ export const postsRouter = createRouter({
       await notificationsService.sendPushNotificationToCategory({
         categories: input.category,
         notification: {
-          title: "Új bejegyzés!",
+          title: "HRC News",
           body: input.title,
         },
       });
